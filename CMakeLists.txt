@@ -1,3 +1,4 @@
+# CMakeLists.txt                                                    -*-CMake-*-
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 cmake_minimum_required(VERSION 3.25)
@@ -34,7 +35,7 @@ if(BEMAN_CONSTEXPR_CALLABLES_BUILD_TESTS)
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
         GIT_TAG
-            f8d7d77c06936315286eb55f8de22cd23c188571 # release-1.14.0
+            b514bdc898e2951020cbdca1304b75f5950d1f59 # release-1.15.2
         EXCLUDE_FROM_ALL
     )
     block()
