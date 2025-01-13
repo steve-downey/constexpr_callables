@@ -248,8 +248,8 @@ constexpr-function-wording.pdf :\
     /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map\
     /var/lib/texmf/tex/generic/config/language.dat\
     /var/lib/texmf/web2c/luahbtex/lualatex.fmt\
-    _minted-constexpr-function-wording/1988C135ECCF452AEAD338F69D13122C90569803F9228AD5F13E9DC007CD6F22.pygtex\
-    _minted-constexpr-function-wording/740C9D54F7645AFBCB3893E0F10FDFA190569803F9228AD5F13E9DC007CD6F22.pygtex\
+    _minted-constexpr-function-wording/439EFDF60C580EA922FFCD832F74C8D990569803F9228AD5F13E9DC007CD6F22.pygtex\
+    _minted-constexpr-function-wording/9161106E00042DF641F404692A15E36790569803F9228AD5F13E9DC007CD6F22.pygtex\
     _minted-constexpr-function-wording/default.pygstyle\
     common.tex\
     constexpr-function-wording.tex\
@@ -760,9 +760,9 @@ constexpr-function-wording.pdf :\
 
 /var/lib/texmf/web2c/luahbtex/lualatex.fmt :
 
-_minted-constexpr-function-wording/1988C135ECCF452AEAD338F69D13122C90569803F9228AD5F13E9DC007CD6F22.pygtex :
+_minted-constexpr-function-wording/439EFDF60C580EA922FFCD832F74C8D990569803F9228AD5F13E9DC007CD6F22.pygtex :
 
-_minted-constexpr-function-wording/740C9D54F7645AFBCB3893E0F10FDFA190569803F9228AD5F13E9DC007CD6F22.pygtex :
+_minted-constexpr-function-wording/9161106E00042DF641F404692A15E36790569803F9228AD5F13E9DC007CD6F22.pygtex :
 
 _minted-constexpr-function-wording/default.pygstyle :
 

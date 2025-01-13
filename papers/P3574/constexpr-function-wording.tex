@@ -17,7 +17,7 @@
 
 \begin{flushright}
   \begin{tabular}{ll}
-    Document \#: & D3574R0 \\
+    Document \#: & P3574R0 \\
     Date: & \today \\
     Project: & Programming Language C++ \\
     Audience: & LEWG
@@ -25,6 +25,7 @@
 \end{flushright}
 
 \begin{abstract}
+Add \tcode{constexpr} in the interface of \tcode{copyable_function} and \tcode{move_only_function}.
 \end{abstract}
 
 \tableofcontents*
@@ -36,22 +37,18 @@
 \end{itemize}
 
 \chapter{Comparison table}
-\section{XYZZY}
+\section{Copyable Function}
 
 \begin{tabular}{ lr }
   \begin{minipage}[t]{0.45\columnwidth}
     \begin{minted}[fontsize=\small]{c++}
-      Cat* cat = find_cat("Fido");
-      if (cat!=nullptr) { return doit(*cat); }
-
-
+      std::copyable_function<int(int)> c;
     \end{minted}
   \end{minipage}
   &
     \begin{minipage}[t]{0.45\columnwidth}
       \begin{minted}[fontsize=\small]{c++}
-        std::optional<Cat&> cat = find_cat("Fido");
-        return cat.and_then(doit);
+      constexpr std::copyable_function<int(int)> c;
 
       \end{minted}
     \end{minipage}
@@ -59,15 +56,17 @@
 
 
 \chapter{Motivation}
-
+Enable type-erasure of functions for compile time programming, for many of the same reasons as normal programming.
 
 \chapter{Design}
+Add \tcode{constexpr} in the interface.
 
-Add \tcode{constexpr}.
+However, no existing compiler and type erased callable work with merely adding \tcode{constexpr}. There seem to be no true implementation barriers as consteval can now allocate and cast from void to the original type, which are the key capabilities.
 
 
 \chapter{Proposal}
 
+Add \tcode{constexpr} in the interface of \tcode{copyable_function} and \tcode{move_only_function}.
 
 \chapter{Wording}
 
