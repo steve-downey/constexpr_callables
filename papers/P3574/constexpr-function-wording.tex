@@ -1,0 +1,92 @@
+\documentclass[a4paper,10pt,oneside,openany,final,article]{memoir}
+\input{common}
+\settocdepth{chapter}
+\usepackage{minted}
+\usepackage{fontspec}
+\setromanfont{Source Serif Pro}
+\setsansfont{Source Sans Pro}
+% \setmonofont{Source Code Pro}
+
+\begin{document}
+\title{Constexpr Callable Wrappers}
+\author{
+  Steve Downey \small<\href{mailto:sdowney@gmail.com}{sdowney@gmail.com}> \small<\href{mailto:sdowney@gmail.com}{sdowney2@bloomberg.net}> \\
+}
+\date{}
+\maketitle
+
+\begin{flushright}
+  \begin{tabular}{ll}
+    Document \#: & D3574R0 \\
+    Date: & \today \\
+    Project: & Programming Language C++ \\
+    Audience: & LEWG
+  \end{tabular}
+\end{flushright}
+
+\begin{abstract}
+\end{abstract}
+
+\tableofcontents*
+
+\chapter*{Changes Since Last Version}
+
+\begin{itemize}
+\item \textbf{Initial Version}
+\end{itemize}
+
+\chapter{Comparison table}
+\section{XYZZY}
+
+\begin{tabular}{ lr }
+  \begin{minipage}[t]{0.45\columnwidth}
+    \begin{minted}[fontsize=\small]{c++}
+      Cat* cat = find_cat("Fido");
+      if (cat!=nullptr) { return doit(*cat); }
+
+
+    \end{minted}
+  \end{minipage}
+  &
+    \begin{minipage}[t]{0.45\columnwidth}
+      \begin{minted}[fontsize=\small]{c++}
+        std::optional<Cat&> cat = find_cat("Fido");
+        return cat.and_then(doit);
+
+      \end{minted}
+    \end{minipage}
+\end{tabular}
+
+
+\chapter{Motivation}
+
+
+\chapter{Design}
+
+Add \tcode{constexpr}.
+
+
+\chapter{Proposal}
+
+
+\chapter{Wording}
+
+\begin{wording}
+
+\include{new-function}
+
+\end{wording}
+
+\chapter{Impact on the standard}
+
+A pure library extension, affecting no other parts of the library or language.
+
+The proposed changes are relative to the current working draft \cite{N4910}.
+
+\renewcommand{\bibname}{References}
+\bibliographystyle{abstract}
+\bibliography{wg21,mybiblio}
+
+
+\backmatter
+\end{document}
