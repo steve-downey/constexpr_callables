@@ -75,4 +75,3 @@ jobs:
           tool_name: pre-commit
           level: warning
           reviewdog_flags: "-fail-level=error"
-

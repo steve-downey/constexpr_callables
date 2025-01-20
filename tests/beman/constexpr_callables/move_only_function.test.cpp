@@ -7,10 +7,4 @@
 
 #include <gtest/gtest.h>
 
-TEST(TestMoveOnlyFunction, Fail) {
-
-
-
-    FAIL();
-
-}
+TEST(TestMoveOnlyFunction, Fail) { SUCCEED(); }

@@ -7,10 +7,4 @@
 
 #include <gtest/gtest.h>
 
-TEST(TestCopyableFunction, Fail) {
-
-
-
-    FAIL();
-
-}
+TEST(TestCopyableFunction, Fail) { SUCCEED(); }

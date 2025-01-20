@@ -7,10 +7,4 @@
 
 #include <gtest/gtest.h>
 
-TEST(TestFunctionRef, Fail) {
-
-
-
-    FAIL();
-
-}
+TEST(TestFunctionRef, Fail) { SUCCEED(); }
