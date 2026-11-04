@@ -1,0 +1,22 @@
+{
+  "name": "beman-constexpr-callables",
+  "version-semver": "@VERSION@",
+  "description": "Constexpr Callables",
+  "homepage": "https://github.com/bemanproject/constexpr_callables",
+  "license": "Apache-2.0 WITH LLVM-exception",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "modules": {
+      "description": "Provide beman.constexpr_callables as a C++ module"
+    }
+  }
+}

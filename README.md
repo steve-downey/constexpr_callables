@@ -1,183 +1,153 @@
+# beman.constexpr_callables: Constexpr Callables
+
 <!--
 SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 -->
 
-# beman.constexpr_callables: Constexpr Callables
+<!-- markdownlint-disable line-length -->
+[![Library Status](https://raw.githubusercontent.com/bemanproject/beman/refs/heads/main/images/badges/beman_badge-beman_library_under_development.svg)](https://github.com/bemanproject/beman/blob/main/docs/beman_library_maturity_model.md#the-beman-library-maturity-model)
+[![Continuous Integration Tests](https://github.com/steve-downey/constexpr_callables/actions/workflows/ci_tests.yml/badge.svg)](https://github.com/steve-downey/constexpr_callables/actions/workflows/ci_tests.yml)
+[![Lint Check (pre-commit)](https://github.com/steve-downey/constexpr_callables/actions/workflows/pre-commit-check.yml/badge.svg)](https://github.com/steve-downey/constexpr_callables/actions/workflows/pre-commit-check.yml)
+[![Coverage](https://coveralls.io/repos/github/steve-downey/constexpr_callables/badge.svg?branch=main)](https://coveralls.io/github/steve-downey/constexpr_callables?branch=main)
+![Standard Target](https://github.com/bemanproject/beman/blob/main/images/badges/cpp29.svg)
+<!-- markdownlint-restore -->
 
-<img src="https://github.com/bemanproject/beman/blob/main/images/logos/beman_logo-beman_library_under_development.png" style="width:5%; height:auto;"> ![Continuous Integration Tests](https://github.com/steve-downey/constexpr_callables/actions/workflows/ci_tests.yml/badge.svg) ![Code Format](https://github.com/steve-downey/constexpr_callables/actions/workflows/pre-commit.yml/badge.svg)
+`beman.constexpr_callables` provides `constexpr`-enabled implementations of the standard callable wrappers.
 
-**Implements**: [`constexpr_callables` (PnnnnRr)](https://wg21.link/PnnnnRr)
+**Implements**: `constexpr` `std::copyable_function`, `std::move_only_function`, and `std::function_ref` proposed in [Constexpr Callable Wrappers (P3574)](https://wg21.link/P3574).
 
-**Status**: [Under development and not yet ready for production use.](https://github.com/bemanproject/beman/blob/main/docs/BEMAN_LIBRARY_MATURITY_MODEL.md#under-development-and-not-yet-ready-for-production-use)
+**Status**: [Under development and not yet ready for production use.](https://github.com/bemanproject/beman/blob/main/docs/beman_library_maturity_model.md#under-development-and-not-yet-ready-for-production-use)
 
-TODO: Describe this project.
+## License
 
-### Usage
+`beman.constexpr_callables` is licensed under the Apache License v2.0 with LLVM Exceptions.
 
-```c++
-TODO: Copy/paste example code from examples/ here.
-```
+## Usage
 
-## Building beman.constexpr_callables
+TODO
 
-### Dependencies
-This project has no C or C++ dependencies.
+Full runnable examples can be found in [`examples/`](examples/).
 
-Build-time dependencies:
+## Dependencies
 
-- `cmake`
-- `ninja`, `make`, or another CMake-supported build system
-  - CMake defaults to "Unix Makefiles" on POSIX systems
+### Build Environment
 
-#### How to install dependencies
+This project requires at least the following to build:
 
-<details>
-<summary>Dependencies install constexpr_callables on Ubuntu 24.04  </summary>
+* A C++ compiler that conforms to the C++20 standard or greater
+* CMake 3.30 or later
+* (Test Only) GoogleTest
 
-TODO: Update this with the appropriate versions of gcc and clang.
-```shell
-# Install tools:
-apt-get install -y cmake make ninja-build
+You can disable building tests by setting CMake option `BEMAN_CONSTEXPR_CALLABLES_BUILD_TESTS` to
+`OFF` when configuring the project.
 
-# Toolchains:
-apt-get install                             g++-14 gcc-14                             clang-18 clang++-18 clang-19 clang++-19
-```
+You can disable building examples by setting CMake option `BEMAN_CONSTEXPR_CALLABLES_BUILD_EXAMPLES` to
+`OFF` when configuring the project.
 
-</details>
+### Supported Platforms
 
-<details>
-<summary>Dependencies install constexpr_callables on MAC OS $VERSION </summary>
+| Compiler   | Version | C++ Standards | Standard Library  |
+|------------|---------|---------------|-------------------|
+| GCC        | 16-13   | C++26-C++17   | libstdc++         |
+| GCC        | 12-11   | C++23-C++17   | libstdc++         |
+| Clang      | 22-19   | C++26-C++17   | libstdc++, libc++ |
+| Clang      | 18      | C++26-C++17   | libc++            |
+| Clang      | 18      | C++23-C++17   | libstdc++         |
+| Clang      | 17      | C++26-C++17   | libc++            |
+| Clang      | 17      | C++20, C++17  | libstdc++         |
+| AppleClang | latest  | C++26-C++17   | libc++            |
+| MSVC       | latest  | C++23         | MSVC STL          |
 
-<!-- TODO Darius: rewrite section!-->
-```shell
-# TODO
-```
+## Development
 
-</details>
-
-<details>
-<summary>Dependencies install constexpr_callables on Windows $VERSION  </summary>
-<!-- TODO Darius: rewrite section!-->
-
-```shell
-# TODO
-```
-
-</details>
-
-### How to build beman.constexpr_callables
-
-This project strives to be as normal and simple a CMake project as possible.
-This build workflow in particular will work,
-producing a static `libbeman.constexpr_callables.a` library, ready to package with its headers:
-
-```shell
-cmake --workflow --preset gcc-debug
-cmake --workflow --preset gcc-release
-cmake --install build/gcc-release --prefix /opt/beman.constexpr_callables
-```
-
-<details>
-<summary> Build beman.constexpr_callables (verbose logs) </summary>
-
-```shell
-# Configure beman.constexpr_callables via gcc-debug workflow for development.
-$ cmake --workflow --preset gcc-debug
-TODO: Run the command above, and copy its output here.
-
-# Configure beman.constexpr_callables via gcc-release workflow for direct usage.
-$ cmake --workflow --preset gcc-release
-TODO: Run the command above, and copy its output here.
-
-# Run examples.
-$ build/gcc-release/examples/beman.constexpr_callables.examples.constexpr_callables_direct_usage
-TODO: Run the command above, and copy its output here.
-
-```
-
-</details>
-
-<details>
-<summary> Install beman.constexpr_callables (verbose logs) </summary>
-
-```shell
-# Install build artifacts from `build` directory into `opt/beman.constexpr_callables` path.
-$ cmake --install build/gcc-release --prefix /opt/beman.constexpr_callables
-TODO: Run the command above, and copy its output here.
-
-# Check tree.
-$ tree /opt/beman.constexpr_callables
-TODO: Run the command above, and copy its output here.
-```
-
-</details>
-
-<details>
-<summary> Disable tests build </summary>
-
-To build this project with tests disabled (and their dependencies),
-simply use `BEMAN_CONSTEXPR_CALLABLES_BUILD_TESTING=OFF` as documented in upstream [CMake documentation](https://cmake.org/cmake/help/latest/module/CTest.html):
-
-```shell
-cmake -B build -S . -DBEMAN_CONSTEXPR_CALLABLES_BUILD_TESTING=OFF
-```
-
-</details>
+See the [Contributing Guidelines](CONTRIBUTING.md).
 
 ## Integrate beman.constexpr_callables into your project
 
-<details>
-<summary> Use beman.constexpr_callables directly from C++ </summary>
+### Build
 
-This library is header only.  If you want to use `beman.constexpr_callables` from your
-project, you can include `beman/constexpr_callables/*.hpp` files from your C++ source
-files
+You can build constexpr_callables using a CMake workflow preset:
 
-```cpp
-#include <beman/constexpr_callables/TODO.hpp>
+```bash
+cmake --workflow --preset gcc-release
 ```
 
-and directly link with `libbeman.constexpr_callables.a`
+To list available workflow presets, you can invoke:
 
-```shell
-# Assume /opt/beman.constexpr_callables staging directory.
-$ c++ -o constexpr_callables_usage examples/constexpr_callables_direct_usage.cpp     -I /opt/beman.constexpr_callables/include/     -L/opt/beman.constexpr_callables/lib/ -lbeman.constexpr_callables
+```bash
+cmake --list-presets=workflow
 ```
 
-</details>
+For details on building beman.constexpr_callables without using a CMake preset, refer to the
+[Contributing Guidelines](CONTRIBUTING.md).
 
-<details>
-<summary> Use beman.constexpr_callables directly from CMake </summary>
+### Installation
 
-<!-- TODO Darius: rewrite section! Add examples. -->
+#### Vcpkg
 
-For CMake based projects, you will need to use the `beman.constexpr_callables` CMake module to define the `beman::constexpr_callables` CMake target:
+The preferred way to install constexpr_callables is via vcpkg. To do so, after installing vcpkg
+itself, you need to add support for the Beman project's [vcpkg
+registry](https://github.com/bemanproject/vcpkg-registry) by configuring a
+`vcpkg-configuration.json` file (which constexpr_callables [provides](vcpkg-configuration.json)).
+
+Then, simply run `vcpkg install beman-constexpr-callables`.
+
+#### Manual
+
+To install beman.constexpr_callables globally after building with the `gcc-release` preset, you can
+run:
+
+```bash
+sudo cmake --install build/gcc-release
+```
+
+Alternatively, to install to a prefix, for example `/opt/beman`, you can run:
+
+```bash
+sudo cmake --install build/gcc-release --prefix /opt/beman
+```
+
+This will generate the following directory structure:
+
+```txt
+/opt/beman
+├── include
+│   └── beman
+│       └── constexpr_callables
+│           ├── constexpr_callables.hpp
+│           └── ...
+└── lib
+    └── cmake
+        └── beman.constexpr_callables
+            ├── beman.constexpr_callables-config-version.cmake
+            ├── beman.constexpr_callables-config.cmake
+            └── beman.constexpr_callables-targets.cmake
+```
+
+### CMake Configuration
+
+If you installed beman.constexpr_callables to a prefix, you can specify that prefix to your CMake
+project using `CMAKE_PREFIX_PATH`; for example, `-DCMAKE_PREFIX_PATH=/opt/beman`.
+
+You need to bring in the `beman.constexpr_callables` package to define the `beman::constexpr_callables` CMake
+target:
 
 ```cmake
 find_package(beman.constexpr_callables REQUIRED)
 ```
 
-You will also need to add `beman::constexpr_callables`
-to the link libraries of any libraries or executables that include `beman/constexpr_callables/*.hpp` in their source or header file.
+You will then need to add `beman::constexpr_callables` to the link libraries of any libraries or
+executables that include `beman.constexpr_callables` headers.
 
 ```cmake
 target_link_libraries(yourlib PUBLIC beman::constexpr_callables)
 ```
 
-</details>
+### Using beman.constexpr_callables
 
-<details>
-<summary> Use beman.constexpr_callables from other build systems </summary>
+To use `beman.constexpr_callables` in your C++ project,
+include an appropriate `beman.constexpr_callables` header from your source code.
 
-<!-- TODO Darius: rewrite section! Add examples. -->
-
-Build systems that support `pkg-config` by providing a `beman.constexpr_callables.pc` file.
-Build systems that support interoperation via `pkg-config` should be able to detect `beman.constexpr_callables` for you automatically.
-
-</details>
-
-### Compiler support
-
-GCC 14 or later; Clang 18 or later; or VS 2022 or later.
-
-Building this repository requires **C++26** or later.
+```c++
+#include <beman/constexpr_callables/constexpr_callables.hpp>
+```
