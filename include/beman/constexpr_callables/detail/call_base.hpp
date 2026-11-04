@@ -32,9 +32,9 @@ union callable_storage {
 };
 
 template <class VT>
-inline constexpr bool stored_locally = sizeof(VT) <= sizeof(callable_storage::local) &&
-                                       alignof(VT) <= alignof(callable_storage) &&
-                                       std::is_nothrow_move_constructible_v<VT>;
+inline constexpr bool stored_locally =
+    sizeof(VT) <= sizeof(callable_storage::local) && alignof(VT) <= alignof(callable_storage) &&
+    std::is_nothrow_move_constructible_v<VT>;
 
 template <class VT, bool Local>
 constexpr VT* target(const callable_storage& storage) noexcept {
@@ -102,29 +102,29 @@ inline constexpr bool invocable_r<true, R, F, Args...> = std::is_nothrow_invocab
 template <class Derived, class Sig>
 class call_base; // not defined
 
-#define SMD_CONSTEXPR_CALLABLES_CALL_BASE(CV, REF, INV_QUALS, NOEX)                                                 \
-    template <class Derived, class R, class... ArgTypes>                                                             \
-    class call_base<Derived, R(ArgTypes...) CV REF noexcept(NOEX)> {                                                 \
-      public:                                                                                                        \
-        using result_type = R;                                                                                       \
-                                                                                                                     \
-        constexpr R operator()(ArgTypes... args) CV REF noexcept(NOEX) {                                             \
-            const Derived& self = static_cast<const Derived&>(*this);                                                \
-            return self.invoker_(self.storage_, std::forward<ArgTypes>(args)...);                                    \
-        }                                                                                                            \
-                                                                                                                     \
-      protected:                                                                                                     \
-        using invoker_t = R (*)(const callable_storage&, ArgTypes&&...) noexcept(NOEX);                              \
-                                                                                                                     \
-        template <class VT>                                                                                          \
-        static constexpr bool is_callable_from =                                                                     \
-            invocable_r<NOEX, R, VT CV REF, ArgTypes...> && invocable_r<NOEX, R, VT INV_QUALS, ArgTypes...>;         \
-                                                                                                                     \
-        template <class VT, bool Local>                                                                              \
-        static constexpr R invoke_target(const callable_storage& storage, ArgTypes&&... args) noexcept(NOEX) {       \
-            return std::invoke_r<R>(static_cast<VT INV_QUALS>(*target<VT, Local>(storage)),                          \
-                                    std::forward<ArgTypes>(args)...);                                                \
-        }                                                                                                            \
+#define SMD_CONSTEXPR_CALLABLES_CALL_BASE(CV, REF, INV_QUALS, NOEX)                                            \
+    template <class Derived, class R, class... ArgTypes>                                                       \
+    class call_base<Derived, R(ArgTypes...) CV REF noexcept(NOEX)> {                                           \
+      public:                                                                                                  \
+        using result_type = R;                                                                                 \
+                                                                                                               \
+        constexpr R operator()(ArgTypes... args) CV REF noexcept(NOEX) {                                       \
+            const Derived& self = static_cast<const Derived&>(*this);                                          \
+            return self.invoker_(self.storage_, std::forward<ArgTypes>(args)...);                              \
+        }                                                                                                      \
+                                                                                                               \
+      protected:                                                                                               \
+        using invoker_t = R (*)(const callable_storage&, ArgTypes&&...) noexcept(NOEX);                        \
+                                                                                                               \
+        template <class VT>                                                                                    \
+        static constexpr bool is_callable_from =                                                               \
+            invocable_r<NOEX, R, VT CV REF, ArgTypes...> && invocable_r<NOEX, R, VT INV_QUALS, ArgTypes...>;   \
+                                                                                                               \
+        template <class VT, bool Local>                                                                        \
+        static constexpr R invoke_target(const callable_storage& storage, ArgTypes&&... args) noexcept(NOEX) { \
+            return std::invoke_r<R>(static_cast<VT INV_QUALS>(*target<VT, Local>(storage)),                    \
+                                    std::forward<ArgTypes>(args)...);                                          \
+        }                                                                                                      \
     }
 
 SMD_CONSTEXPR_CALLABLES_CALL_BASE(, , &, false);

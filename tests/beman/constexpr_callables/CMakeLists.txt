@@ -63,3 +63,4 @@ function(add_fail_test name source reason)
 endfunction()
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/move_only_function_fail.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/copyable_function_fail.cmake)
