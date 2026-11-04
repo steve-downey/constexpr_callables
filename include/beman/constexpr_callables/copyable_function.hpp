@@ -83,8 +83,8 @@ class copyable_function<R(ArgTypes...) noexcept(false)> {
 
     // [func.wrap.copy.util], utility
     void        swap(copyable_function&) noexcept;
-    friend void swap(copyable_function&, copyable_function&) noexcept;
-    friend bool operator==(const copyable_function&, std::nullptr_t) noexcept;
+    friend void swap(copyable_function& f1, copyable_function& f2) noexcept { f1.swap(f2); }
+    friend bool operator==(const copyable_function& f, std::nullptr_t) noexcept { return !f; }
 
   private:
     template <class VT>
