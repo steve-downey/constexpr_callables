@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <utility>
 #include <initializer_list>
+#include <type_traits>
 
 namespace smd {
 namespace constexpr_callables {
