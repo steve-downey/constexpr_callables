@@ -52,6 +52,12 @@ else()
 endif()
 add_library(beman::constexpr_callables ALIAS beman.constexpr_callables)
 
+# The wrappers are constexpr type erasure: they rely on static_cast from void*
+# in constant expressions (P2738, C++26), plus `if consteval` and invoke_r.
+if(NOT BEMAN_CONSTEXPR_CALLABLES_USE_MODULES)
+    target_compile_features(beman.constexpr_callables INTERFACE cxx_std_26)
+endif()
+
 if(BEMAN_CONSTEXPR_CALLABLES_USE_MODULES)
     target_sources(
         beman.constexpr_callables

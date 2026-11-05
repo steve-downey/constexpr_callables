@@ -4,7 +4,7 @@ _commit: v2.4.1-49-g63f5ec4
 _src_path: https://github.com/steve-downey/exemplar.git
 description: Constexpr Callables
 maintainer: steve-downey
-minimum_cpp_build_version: '20'
+minimum_cpp_build_version: '26'
 paper: P3574
 project_name: constexpr_callables
 unit_test_library: gtest
