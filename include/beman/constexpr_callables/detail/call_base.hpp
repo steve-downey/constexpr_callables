@@ -102,45 +102,57 @@ inline constexpr bool invocable_r<true, R, F, Args...> = std::is_nothrow_invocab
 template <class Derived, class Sig>
 class call_base; // not defined
 
-#define SMD_CONSTEXPR_CALLABLES_CALL_BASE(CV, REF, INV_QUALS, NOEX)                                            \
-    template <class Derived, class R, class... ArgTypes>                                                       \
-    class call_base<Derived, R(ArgTypes...) CV REF noexcept(NOEX)> {                                           \
-      public:                                                                                                  \
-        using result_type = R;                                                                                 \
-                                                                                                               \
-        constexpr R operator()(ArgTypes... args) CV REF noexcept(NOEX) {                                       \
-            const Derived& self = static_cast<const Derived&>(*this);                                          \
-            return self.invoker_(self.storage_, std::forward<ArgTypes>(args)...);                              \
-        }                                                                                                      \
-                                                                                                               \
-      protected:                                                                                               \
-        using invoker_t = R (*)(const callable_storage&, ArgTypes&&...) noexcept(NOEX);                        \
-                                                                                                               \
-        template <class VT>                                                                                    \
-        static constexpr bool is_callable_from =                                                               \
-            invocable_r<NOEX, R, VT CV REF, ArgTypes...> && invocable_r<NOEX, R, VT INV_QUALS, ArgTypes...>;   \
-                                                                                                               \
-        template <class VT, bool Local>                                                                        \
-        static constexpr R invoke_target(const callable_storage& storage, ArgTypes&&... args) noexcept(NOEX) { \
-            return std::invoke_r<R>(static_cast<VT INV_QUALS>(*target<VT, Local>(storage)),                    \
-                                    std::forward<ArgTypes>(args)...);                                          \
-        }                                                                                                      \
-    }
+#define SMD_CONSTEXPR_CALLABLES_CALL_BASE_IMPL
 
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, , &, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, , &, true);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, &, &, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, &, &, true);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, &&, &&, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(, &&, &&, true);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, , const&, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, , const&, true);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, &, const&, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, &, const&, true);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, &&, const&&, false);
-SMD_CONSTEXPR_CALLABLES_CALL_BASE(const, &&, const&&, true);
+#define SMD_CONSTEXPR_CALLABLES_CV
+#define SMD_CONSTEXPR_CALLABLES_REF
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS &
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
 
-#undef SMD_CONSTEXPR_CALLABLES_CALL_BASE
+#define SMD_CONSTEXPR_CALLABLES_CV
+#define SMD_CONSTEXPR_CALLABLES_REF &
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS &
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
+
+#define SMD_CONSTEXPR_CALLABLES_CV
+#define SMD_CONSTEXPR_CALLABLES_REF &&
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS &&
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
+
+#define SMD_CONSTEXPR_CALLABLES_CV const
+#define SMD_CONSTEXPR_CALLABLES_REF
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS const&
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
+
+#define SMD_CONSTEXPR_CALLABLES_CV const
+#define SMD_CONSTEXPR_CALLABLES_REF &
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS const&
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
+
+#define SMD_CONSTEXPR_CALLABLES_CV const
+#define SMD_CONSTEXPR_CALLABLES_REF &&
+#define SMD_CONSTEXPR_CALLABLES_INV_QUALS const&&
+#include <beman/constexpr_callables/detail/call_base_impl.hpp>
+#undef SMD_CONSTEXPR_CALLABLES_CV
+#undef SMD_CONSTEXPR_CALLABLES_REF
+#undef SMD_CONSTEXPR_CALLABLES_INV_QUALS
+
+#undef SMD_CONSTEXPR_CALLABLES_CALL_BASE_IMPL
 
 template <class T>
 inline constexpr bool is_in_place_type = false;

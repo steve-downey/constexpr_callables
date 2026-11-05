@@ -9,6 +9,6 @@
 using smd::constexpr_callables::copyable_function;
 
 void test() {
-    auto                      move_only = [p = std::make_unique<int>(1)] { return *p; };
+    auto                     move_only = [p = std::make_unique<int>(1)] { return *p; };
     copyable_function<int()> f(move_only); // must not compile
 }

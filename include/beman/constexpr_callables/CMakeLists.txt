@@ -11,6 +11,8 @@ if(BEMAN_CONSTEXPR_CALLABLES_USE_MODULES)
                     constexpr_callables.hpp
                     copyable_function.hpp
                     detail/call_base.hpp
+                    detail/call_base_impl.hpp
+                    detail/function_ref_impl.hpp
                     function_ref.hpp
                     move_only_function.hpp
                     "${PROJECT_BINARY_DIR}/include/beman/constexpr_callables/config_generated.hpp"
@@ -25,6 +27,8 @@ else()
                     constexpr_callables.hpp
                     copyable_function.hpp
                     detail/call_base.hpp
+                    detail/call_base_impl.hpp
+                    detail/function_ref_impl.hpp
                     function_ref.hpp
                     move_only_function.hpp
                     "${PROJECT_BINARY_DIR}/include/beman/constexpr_callables/config_generated.hpp"
