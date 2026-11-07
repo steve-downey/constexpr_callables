@@ -51,7 +51,8 @@ class function_ref<R(ArgTypes...) SMD_CONSTEXPR_CALLABLES_CV noexcept(noex)> {
 
     template <auto f, class T>
         requires(is_invocable_using<decltype(f), SMD_CONSTEXPR_CALLABLES_CV T*>)
-    constexpr function_ref(nontype_t<f>, SMD_CONSTEXPR_CALLABLES_CV T* obj) noexcept : thunk_ptr_(&bound_pointer_thunk<f, T>) {
+    constexpr function_ref(nontype_t<f>, SMD_CONSTEXPR_CALLABLES_CV T* obj) noexcept
+        : thunk_ptr_(&bound_pointer_thunk<f, T>) {
         static_assert(!detail::nontype_is_null<f>, "function_ref nontype_t<f> requires f != nullptr");
         bound_entity_.object = obj;
     }
@@ -94,8 +95,9 @@ class function_ref<R(ArgTypes...) SMD_CONSTEXPR_CALLABLES_CV noexcept(noex)> {
 
     template <auto f, class T>
     static constexpr R bound_object_thunk(detail::bound_entity entity, ArgTypes&&... args) noexcept(noex) {
-        return std::invoke_r<R>(
-            f, static_cast<SMD_CONSTEXPR_CALLABLES_CV T&>(*object_pointer<T>(entity)), std::forward<ArgTypes>(args)...);
+        return std::invoke_r<R>(f,
+                                static_cast<SMD_CONSTEXPR_CALLABLES_CV T&>(*object_pointer<T>(entity)),
+                                std::forward<ArgTypes>(args)...);
     }
 
     template <auto f, class T>

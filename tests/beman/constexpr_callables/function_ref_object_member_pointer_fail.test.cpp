@@ -14,6 +14,6 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    auto                      pmf = &object::member;
+    auto                            pmf = &object::member;
     function_ref<int(object&, int)> f(pmf); // must not compile
 }

@@ -14,6 +14,6 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    object o;
+    object              o;
     function_ref<int()> f(o); // must not compile
 }
