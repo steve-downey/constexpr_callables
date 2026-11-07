@@ -18,14 +18,6 @@ namespace constexpr_callables {
 template <class... S>
 class move_only_function; // not defined
 
-namespace detail {
-template <class T>
-inline constexpr bool is_move_only_function = false;
-
-template <class... S>
-inline constexpr bool is_move_only_function<move_only_function<S...>> = true;
-} // namespace detail
-
 /*
 The header provides partial specializations of move_only_function for each
 combination of the possible replacements of the placeholders cv, ref, and noex
@@ -64,7 +56,8 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
         if constexpr (std::is_pointer_v<std::remove_cvref_t<F>> || std::is_member_pointer_v<VT>) {
             if (f == nullptr)
                 return;
-        } else if constexpr (detail::is_move_only_function<std::remove_cvref_t<F>>) {
+        } else if constexpr (detail::is_move_only_function<std::remove_cvref_t<F>> ||
+                             detail::is_copyable_function<std::remove_cvref_t<F>>) {
             if (!f)
                 return;
         }

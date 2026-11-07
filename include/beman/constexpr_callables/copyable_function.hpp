@@ -18,14 +18,6 @@ namespace constexpr_callables {
 template <class... S>
 class copyable_function; // not defined
 
-namespace detail {
-template <class T>
-inline constexpr bool is_copyable_function = false;
-
-template <class... S>
-inline constexpr bool is_copyable_function<copyable_function<S...>> = true;
-} // namespace detail
-
 /*
 The header provides partial specializations of copyable_function for each
 combination of the possible replacements of the placeholders cv, ref, and noex

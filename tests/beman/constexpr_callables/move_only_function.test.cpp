@@ -5,6 +5,8 @@
 
 #include <beman/constexpr_callables/move_only_function.hpp> // test 2nd include OK
 
+#include <beman/constexpr_callables/copyable_function.hpp>
+
 #include <beman/constexpr_callables/testing/constant_eval.hpp>
 
 #include <gtest/gtest.h>
@@ -19,6 +21,7 @@
 
 namespace {
 
+using smd::constexpr_callables::copyable_function;
 using smd::constexpr_callables::move_only_function;
 using smd::constexpr_callables::testing::constant_eval;
 
@@ -300,6 +303,27 @@ TEST(MoveOnlyFunction, NonEmptyOtherSpecializationIsWrapped) {
         move_only_function<int() const> other = [] { return 9; };
         move_only_function<int()>       f(std::move(other));
         return static_cast<bool>(f) && f() == 9;
+    };
+    EXPECT_TRUE(constant_eval(probe));
+    EXPECT_TRUE(probe());
+}
+
+TEST(MoveOnlyFunction, EmptyCopyableFunctionGivesNoTarget) {
+    constexpr auto probe = [] {
+        copyable_function<int()>  empty;
+        move_only_function<int()> from_lvalue(empty);
+        move_only_function<int()> from_rvalue(std::move(empty));
+        return !from_lvalue && !from_rvalue;
+    };
+    EXPECT_TRUE(constant_eval(probe));
+    EXPECT_TRUE(probe());
+}
+
+TEST(MoveOnlyFunction, NonEmptyCopyableFunctionIsWrapped) {
+    constexpr auto probe = [] {
+        copyable_function<int() const> other = [] { return 9; };
+        move_only_function<int()>      f(other);
+        return static_cast<bool>(f) && static_cast<bool>(other) && f() == 9;
     };
     EXPECT_TRUE(constant_eval(probe));
     EXPECT_TRUE(probe());

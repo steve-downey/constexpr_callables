@@ -22,7 +22,26 @@
 #include <type_traits>
 #include <utility>
 
+namespace smd::constexpr_callables {
+template <class... S>
+class move_only_function;
+template <class... S>
+class copyable_function;
+} // namespace smd::constexpr_callables
+
 namespace smd::constexpr_callables::detail {
+
+template <class T>
+inline constexpr bool is_move_only_function = false;
+
+template <class... S>
+inline constexpr bool is_move_only_function<move_only_function<S...>> = true;
+
+template <class T>
+inline constexpr bool is_copyable_function = false;
+
+template <class... S>
+inline constexpr bool is_copyable_function<copyable_function<S...>> = true;
 
 union callable_storage {
     void* heap;
