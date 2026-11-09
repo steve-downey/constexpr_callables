@@ -4,7 +4,6 @@
 #include <beman/constexpr_callables/function_ref.hpp>
 
 using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
 
 struct object {
     int value = 0;

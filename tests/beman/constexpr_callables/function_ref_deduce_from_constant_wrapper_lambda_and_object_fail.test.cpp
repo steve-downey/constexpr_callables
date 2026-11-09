@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// NEGATIVE: is_function_v<remove_pointer_t<decltype(f)>> is false for a lambda
-// CLAUSE: [func.wrap.ref.deduct] function_ref(nontype_t<f>) Constraints
+// NEGATIVE: F is not a member pointer or a function pointer
+// CLAUSE: [func.wrap.ref.deduct] function_ref(constant_wrapper<c, F>, T&&) Constraints
 #include <beman/constexpr_callables/function_ref.hpp>
 
+#include <utility>
+
 using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
 
 struct object {
     int value = 0;
@@ -14,5 +15,6 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    function_ref f(nontype<[](int x) { return x; }>); // must not compile
+    object       o;
+    function_ref f(std::cw<[](object&) { return 0; }>, o); // must not compile
 }
