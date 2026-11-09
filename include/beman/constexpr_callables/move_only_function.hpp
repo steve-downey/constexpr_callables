@@ -123,6 +123,7 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
 
     //! Let `VT` be `decay_t<F>`.
     //! \constraints
+    //! \covers !detail::is_in_place_type<remove_cvref_t<F>>
     //! \item `remove_cvref_t<F>` is not the same type as `move_only_function`, and
     //! \item `remove_cvref_t<F>` is not a specialization of `in_place_type_t`, and
     //! \item `is_callable_from<VT>` is `true`.
