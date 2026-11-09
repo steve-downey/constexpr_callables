@@ -35,6 +35,7 @@ class move_only_function; // not defined
 //! \item \placeholder{ref} is either `&`, `&&`, or empty, and
 //! \item \placeholder{noex} is either `true` or `false`.
 //!
+//!
 //! For each of the possible combinations of the placeholders mentioned above,
 //! there is a placeholder \placeholder{inv-quals} defined as follows:
 //! \item If \placeholder{ref} is empty, let \placeholder{inv-quals} be \cv{}`&`,
