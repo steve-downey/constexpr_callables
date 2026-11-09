@@ -283,6 +283,9 @@ endif
 install-uv: ## install uv via `pipx install uv`
 	$(install_uv_cmd)
 
+# Generated P3574 wording: make wording, make wording-check
+include papers/P3574/wording.mk
+
 # Help target
 .PHONY: help
 help: ## Show this help.
