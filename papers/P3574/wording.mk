@@ -106,7 +106,9 @@ $(WORDING_DIR)/wording.tex: $(WORDING_DIR)/preamble.tex $(WORDING_FRAGMENTS)
 	@$(call assemble_wording,$(WORDING_DIR))
 	@echo "Wrote $@"
 
--include papers/.deps/wording.d
+# $(wildcard) so that, before the first run, make does not try to remake the
+# depfile (the root Makefile's .DEFAULT rule would hand it to CMake).
+-include $(wildcard papers/.deps/wording.d)
 
 .PHONY: wording
 wording: $(WORDING_DIR)/wording.tex ## Regenerate papers/P3574/wording/ from the annotated headers via specgen
