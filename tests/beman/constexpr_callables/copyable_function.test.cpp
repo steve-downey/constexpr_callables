@@ -531,6 +531,18 @@ TEST(CopyableFunction, InvokesTargetWithInvQualsNoexcept) {
     EXPECT_TRUE(probe());
 }
 
+// gcc false positive at -O2 and above: calling through a member function
+// pointer compiles to a branch on whether the pointer is virtual, and the
+// virtual arm loads a vtable pointer from the object. Once the pointer has
+// been through type-erased storage, gcc can't prove that arm dead, and warns
+// that it reads 8 bytes of the 4-byte accumulator. libstdc++'s own
+// std::move_only_function, std::copyable_function, and std::function draw the
+// same warning for the same call. Drop the pragma once GCC PR 111750 is
+// fixed: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=111750
+#if defined(__GNUC__) && !defined(__clang__)
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Warray-bounds"
+#endif
 TEST(CopyableFunction, InvokesMemberFunctionPointer) {
     constexpr auto probe = [] {
         accumulator                               acc;
@@ -541,6 +553,9 @@ TEST(CopyableFunction, InvokesMemberFunctionPointer) {
     EXPECT_EQ(constant_eval(probe), 9);
     EXPECT_EQ(probe(), 9);
 }
+#if defined(__GNUC__) && !defined(__clang__)
+    #pragma GCC diagnostic pop
+#endif
 
 TEST(CopyableFunction, InvokesMemberDataPointer) {
     constexpr auto probe = [] {
