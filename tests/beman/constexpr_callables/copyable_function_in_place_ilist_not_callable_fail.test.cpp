@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 #include <initializer_list>
 struct ilist_not_callable {

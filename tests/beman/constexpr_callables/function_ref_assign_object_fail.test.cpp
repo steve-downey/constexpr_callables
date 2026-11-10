@@ -3,7 +3,7 @@
 // constant_wrapper CLAUSE: [func.wrap.ref.ctor] operator=(T) deleted
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;

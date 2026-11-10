@@ -34,7 +34,8 @@ Full runnable examples can be found in [`examples/`](examples/).
 
 This project requires at least the following to build:
 
-* A C++ compiler that conforms to the C++26 standard or greater
+* A C++ compiler that conforms to the C++26 standard or greater and a standard
+  library implementation of `std::constant_wrapper`
 * CMake 3.30 or later
 * (Test Only) GoogleTest
 
@@ -46,17 +47,10 @@ You can disable building examples by setting CMake option `BEMAN_CONSTEXPR_CALLA
 
 ### Supported Platforms
 
-| Compiler   | Version | C++ Standards | Standard Library  |
-|------------|---------|---------------|-------------------|
-| GCC        | 16-13   | C++26-C++17   | libstdc++         |
-| GCC        | 12-11   | C++23-C++17   | libstdc++         |
-| Clang      | 22-19   | C++26-C++17   | libstdc++, libc++ |
-| Clang      | 18      | C++26-C++17   | libc++            |
-| Clang      | 18      | C++23-C++17   | libstdc++         |
-| Clang      | 17      | C++26-C++17   | libc++            |
-| Clang      | 17      | C++20, C++17  | libstdc++         |
-| AppleClang | latest  | C++26-C++17   | libc++            |
-| MSVC       | latest  | C++23         | MSVC STL          |
+| Compiler   | Version | C++ Standard | Standard Library |
+|------------|---------|--------------|------------------|
+| GCC        | 16      | C++26        | libstdc++        |
+| Clang      | 22      | C++26        | libstdc++        |
 
 ## Development
 

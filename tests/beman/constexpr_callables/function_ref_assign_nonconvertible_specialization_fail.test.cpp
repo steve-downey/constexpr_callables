@@ -4,7 +4,7 @@
 // CLAUSE: [func.wrap.ref.ctor] operator=(T) deleted
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
+using beman::constexpr_callables::function_ref;
 
 void test() {
     auto                      l = [] { return 0; };

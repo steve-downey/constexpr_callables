@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 struct move_only_callable {
     move_only_callable()                          = default;

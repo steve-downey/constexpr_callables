@@ -6,7 +6,7 @@
 
 #include <utility>
 
-using smd::constexpr_callables::function_ref;
+using beman::constexpr_callables::function_ref;
 
 void test() {
     function_ref<int(decltype(std::cw<1>))> f(std::cw<[](int x) { return x + 1; }>); // must not compile

@@ -15,3 +15,6 @@ disabled_rules:
   - cmake.passive_targets
 ignored_paths:
   - infra/
+  # These headers are included inside their owning class namespace.
+  - include/beman/constexpr_callables/detail/call_base_impl.hpp
+  - include/beman/constexpr_callables/detail/function_ref_impl.hpp

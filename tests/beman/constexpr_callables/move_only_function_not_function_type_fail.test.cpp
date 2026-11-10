@@ -6,6 +6,6 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::move_only_function;
+using beman::constexpr_callables::move_only_function;
 
 move_only_function<int> f; // must not compile

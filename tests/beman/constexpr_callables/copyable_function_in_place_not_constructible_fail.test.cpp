@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 struct needs_int {
     explicit needs_int(int) {}

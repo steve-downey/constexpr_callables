@@ -21,8 +21,7 @@
     #error "function_ref requires std::constant_wrapper (__cpp_lib_constant_wrapper)"
 #endif
 
-namespace smd {
-namespace constexpr_callables {
+namespace beman::constexpr_callables {
 
 // [func.wrap.ref], non-owning wrapper
 template <class... S>
@@ -453,7 +452,6 @@ function_ref(std::constant_wrapper<c, F>, T&&)
 
 // clang-format on
 
-} // namespace constexpr_callables
-} // namespace smd
+} // namespace beman::constexpr_callables
 
 #endif

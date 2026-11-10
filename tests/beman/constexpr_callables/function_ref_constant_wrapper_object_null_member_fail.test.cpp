@@ -5,7 +5,7 @@
 
 #include <utility>
 
-using smd::constexpr_callables::function_ref;
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;

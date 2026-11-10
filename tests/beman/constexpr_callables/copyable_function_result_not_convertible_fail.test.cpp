@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 struct returns_int {
     int operator()() const { return 0; }

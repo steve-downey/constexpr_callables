@@ -18,8 +18,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace smd {
-namespace constexpr_callables {
+namespace beman::constexpr_callables {
 
 template <class... S>
 class move_only_function; // not defined
@@ -332,7 +331,6 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
 
 // \rSec4[func.wrap.move.util]{Utility}
 
-} // namespace constexpr_callables
-} // namespace smd
+} // namespace beman::constexpr_callables
 
 #endif

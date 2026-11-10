@@ -6,6 +6,6 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 copyable_function<int> f; // must not compile

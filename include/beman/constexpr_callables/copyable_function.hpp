@@ -18,8 +18,7 @@
 #include <type_traits>
 #include <utility>
 
-namespace smd {
-namespace constexpr_callables {
+namespace beman::constexpr_callables {
 
 template <class... S>
 class copyable_function; // not defined
@@ -356,7 +355,6 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
 
 // \rSec4[func.wrap.copy.util]{Utility}
 
-} // namespace constexpr_callables
-} // namespace smd
+} // namespace beman::constexpr_callables
 
 #endif
