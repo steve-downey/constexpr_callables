@@ -29,28 +29,17 @@
 \usepackage{lmodern}
 \usepackage{xcolor}
 \usepackage[T1]{fontenc}
-\usepackage{graphicx}
-\usepackage{hyperref}
-% \usepackage[pdftex,
-%             bookmarks=true,
-%             bookmarksnumbered=true,
-%             pdfpagelabels=true,
-%             pdfpagemode=UseOutlines,
-%             pdfstartview=FitH,
-%             linktocpage=true,
-%             colorlinks=true,
-%             plainpages=false,
-%             allcolors={blue},
-%             allbordercolors={white}
-%             ]{hyperref}
-
-% \usepackage[pdftex,
-%   pdfauthor={Steve Downey},
-%   pdftitle={dXXXpX},
-%   pdfkeywords={},
-%   pdfsubject={},
-%   pdfcreator={Emacs 28.1.50 (Org mode 9.5.2)},
-%   pdflang={English}]{hyperref}
+\usepackage[luatex, final]{graphicx}
+\usepackage[luatex, pdfusetitle]{hyperref}
+\hypersetup{bookmarksnumbered=true,
+            pdfpagemode=UseOutlines,
+            pdfstartview=FitH,
+            linktocpage=true,
+            colorlinks=true,
+            linkcolor=blue,
+            citecolor=blue,
+            urlcolor=blue,    % ISO/IEC Directives, Part 2, section 6.5
+            plainpages=false}
 
 \usepackage{memhfixc}     % fix interactions between hyperref and memoir
 \usepackage{expl3}
@@ -60,13 +49,10 @@
 \usepackage{url}  % urls in ref.bib
 \usepackage{tabularx}  % don't use the C++ standard's fancy tables, they come with captions!
 
-\special{pdf:minorversion 5} %set minorversion
-\special{pdf:compresslevel 9} %set minorversion
-\special{pdf:objcompresslevel 9} %set minorversion
-
-% \pdfminorversion=5
-% \pdfcompresslevel=9
-% \pdfobjcompresslevel=2
+% LuaTeX primitives; a \special{pdf:...} here would be emitted as raw
+% page content, which Acrobat rejects.
+\pdfvariable majorversion 2
+\pdfvariable minorversion 0
 
 \renewcommand\RSsmallest{5.5pt}  % smallest font size for relsize
 
