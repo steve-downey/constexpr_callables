@@ -59,31 +59,31 @@ class copyable_function; // not defined
 //!   using result_type = R;
 //!
 //!   // \ref{func.wrap.copy.ctor}, constructors, assignments, and destructor
-//!   constexpr copyable_function() noexcept;
-//!   constexpr copyable_function(nullptr_t) noexcept;
-//!   constexpr copyable_function(const copyable_function&);
-//!   constexpr copyable_function(copyable_function&&) noexcept;
-//!   template<class F> constexpr copyable_function(F&&);
+//!   copyable_function() noexcept;
+//!   copyable_function(nullptr_t) noexcept;
+//!   copyable_function(const copyable_function&);
+//!   copyable_function(copyable_function&&) noexcept;
+//!   template<class F> copyable_function(F&&);
 //!   template<class T, class... Args>
-//!     constexpr explicit copyable_function(in_place_type_t<T>, Args&&...);
+//!     explicit copyable_function(in_place_type_t<T>, Args&&...);
 //!   template<class T, class U, class... Args>
-//!     constexpr explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
+//!     explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
 //!
-//!   constexpr copyable_function& operator=(const copyable_function&);
-//!   constexpr copyable_function& operator=(copyable_function&&);
-//!   constexpr copyable_function& operator=(nullptr_t) noexcept;
-//!   template<class F> constexpr copyable_function& operator=(F&&);
+//!   copyable_function& operator=(const copyable_function&);
+//!   copyable_function& operator=(copyable_function&&);
+//!   copyable_function& operator=(nullptr_t) noexcept;
+//!   template<class F> copyable_function& operator=(F&&);
 //!
-//!   constexpr ~copyable_function();
+//!   ~copyable_function();
 //!
 //!   // \ref{func.wrap.copy.inv}, invocation
-//!   constexpr explicit operator bool() const noexcept;
-//!   constexpr R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+//!   explicit operator bool() const noexcept;
+//!   R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 //!
 //!   // \ref{func.wrap.copy.util}, utility
-//!   constexpr void swap(copyable_function&) noexcept;
-//!   friend constexpr void swap(copyable_function&, copyable_function&) noexcept;
-//!   friend constexpr bool operator==(const copyable_function&, nullptr_t) noexcept;
+//!   void swap(copyable_function&) noexcept;
+//!   friend void swap(copyable_function&, copyable_function&) noexcept;
+//!   friend bool operator==(const copyable_function&, nullptr_t) noexcept;
 //!
 //! private:
 //!   template<class VT>
@@ -114,16 +114,16 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
 
   public:
     //! \ensures `*this` has no target object.
-    constexpr copyable_function() noexcept {}
+    copyable_function() noexcept {}
     //! \also
-    constexpr copyable_function(std::nullptr_t) noexcept {}
+    copyable_function(std::nullptr_t) noexcept {}
 
     //! \ensures `*this` has no target object if `f` had no target object.
     //! Otherwise, the target object of `*this`
     //! is a copy of the target object of `f`.
     //! \throws Any exception thrown by the initialization of the target object.
     //! May throw `bad_alloc`.
-    constexpr copyable_function(const copyable_function& f) {
+    copyable_function(const copyable_function& f) {
         if (f.has_target()) {
             f.manager_(detail::manage_op::copy, storage_, const_cast<detail::callable_storage*>(&f.storage_));
             invoker_ = f.invoker_;
@@ -134,7 +134,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     //! \ensures The target object of `*this` is
     //! the target object `f` had before construction, and
     //! `f` is in a valid state with an unspecified value.
-    constexpr copyable_function(copyable_function&& f) noexcept { take(f); }
+    copyable_function(copyable_function&& f) noexcept { take(f); }
 
     //! Let `VT` be `decay_t<F>`.
     //! \constraints
@@ -162,7 +162,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     template <class F>
         requires(!std::is_same_v<std::remove_cvref_t<F>, copyable_function>) &&
                 (!detail::is_in_place_type<std::remove_cvref_t<F>>) && (is_callable_from<std::decay_t<F>>)
-    constexpr copyable_function(F&& f) {
+    copyable_function(F&& f) {
         using VT = std::decay_t<F>;
         static_assert(std::is_constructible_v<VT, F>, "copyable_function target must be constructible from F");
         static_assert(std::is_copy_constructible_v<VT>, "copyable_function target must be copy constructible");
@@ -192,7 +192,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     //! a pointer or a specialization of `reference_wrapper`.
     template <class T, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, Args...> && (is_callable_from<std::decay_t<T>>)
-    constexpr explicit copyable_function(std::in_place_type_t<T>, Args&&... args) {
+    explicit copyable_function(std::in_place_type_t<T>, Args&&... args) {
         using VT = std::decay_t<T>;
         static_assert(std::is_same_v<VT, T>, "copyable_function in_place_type_t<T> requires decay_t<T> == T");
         static_assert(std::is_copy_constructible_v<VT>, "copyable_function target must be copy constructible");
@@ -218,7 +218,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     template <class T, class U, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, std::initializer_list<U>&, Args...> &&
                  (is_callable_from<std::decay_t<T>>)
-    constexpr explicit copyable_function(std::in_place_type_t<T>, std::initializer_list<U> ilist, Args&&... args) {
+    explicit copyable_function(std::in_place_type_t<T>, std::initializer_list<U> ilist, Args&&... args) {
         using VT = std::decay_t<T>;
         static_assert(std::is_same_v<VT, T>, "copyable_function in_place_type_t<T> requires decay_t<T> == T");
         static_assert(std::is_copy_constructible_v<VT>, "copyable_function target must be copy constructible");
@@ -227,21 +227,21 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
 
     //! \effects Equivalent to: `copyable_function(f).swap(*this);`
     //! \returns `*this`.
-    constexpr copyable_function& operator=(const copyable_function& f) {
+    copyable_function& operator=(const copyable_function& f) {
         copyable_function(f).swap(*this);
         return *this;
     }
 
     //! \effects Equivalent to: `copyable_function(std::move(f)).swap(*this);`
     //! \returns `*this`.
-    constexpr copyable_function& operator=(copyable_function&& f) {
+    copyable_function& operator=(copyable_function&& f) {
         copyable_function(std::move(f)).swap(*this);
         return *this;
     }
 
     //! \effects Destroys the target object of `*this`, if any.
     //! \returns `*this`.
-    constexpr copyable_function& operator=(std::nullptr_t) noexcept {
+    copyable_function& operator=(std::nullptr_t) noexcept {
         reset();
         return *this;
     }
@@ -249,23 +249,23 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     //! \effects Equivalent to: `copyable_function(std::forward<F>(f)).swap(*this);`
     //! \returns `*this`.
     template <class F>
-    constexpr copyable_function& operator=(F&& f) {
+    copyable_function& operator=(F&& f) {
         copyable_function(std::forward<F>(f)).swap(*this);
         return *this;
     }
 
     //! \effects Destroys the target object of `*this`, if any.
-    constexpr ~copyable_function() { reset(); }
+    ~copyable_function() { reset(); }
 
     // \ref{func.wrap.copy.inv}, invocation
 
     //! \returns `true` if `*this` has a target object, otherwise `false`.
-    constexpr explicit operator bool() const noexcept { return has_target(); }
+    explicit operator bool() const noexcept { return has_target(); }
 
     // \ref{func.wrap.copy.util}, utility
 
     //! \effects Exchanges the target objects of `*this` and `other`.
-    constexpr void swap(copyable_function& other) noexcept {
+    void swap(copyable_function& other) noexcept {
         if (this == &other)
             return;
         copyable_function tmp(std::move(other));
@@ -274,10 +274,10 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     }
 
     //! \effects Equivalent to `f1.swap(f2)`.
-    friend constexpr void swap(copyable_function& f1, copyable_function& f2) noexcept { f1.swap(f2); }
+    friend void swap(copyable_function& f1, copyable_function& f2) noexcept { f1.swap(f2); }
 
     //! \returns `true` if `f` has no target object, otherwise `false`.
-    friend constexpr bool operator==(const copyable_function& f, std::nullptr_t) noexcept { return !f; }
+    friend bool operator==(const copyable_function& f, std::nullptr_t) noexcept { return !f; }
 
   private:
     //! \omit
@@ -351,7 +351,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
 //! where `f` is an lvalue designating the target object of `*this` and
 //! `F` is the type of `f`.
 //! \verbatim-itemdecl
-//! constexpr R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+//! R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 
 // \rSec4[func.wrap.copy.util]{Utility}
 

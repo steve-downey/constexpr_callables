@@ -59,29 +59,29 @@ class move_only_function; // not defined
 //!   using result_type = R;
 //!
 //!   // \ref{func.wrap.move.ctor}, constructors, assignments, and destructor
-//!   constexpr move_only_function() noexcept;
-//!   constexpr move_only_function(nullptr_t) noexcept;
-//!   constexpr move_only_function(move_only_function&&) noexcept;
-//!   template<class F> constexpr move_only_function(F&&);
+//!   move_only_function() noexcept;
+//!   move_only_function(nullptr_t) noexcept;
+//!   move_only_function(move_only_function&&) noexcept;
+//!   template<class F> move_only_function(F&&);
 //!   template<class T, class... Args>
-//!     constexpr explicit move_only_function(in_place_type_t<T>, Args&&...);
+//!     explicit move_only_function(in_place_type_t<T>, Args&&...);
 //!   template<class T, class U, class... Args>
-//!     constexpr explicit move_only_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
+//!     explicit move_only_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
 //!
-//!   constexpr move_only_function& operator=(move_only_function&&);
-//!   constexpr move_only_function& operator=(nullptr_t) noexcept;
-//!   template<class F> constexpr move_only_function& operator=(F&&);
+//!   move_only_function& operator=(move_only_function&&);
+//!   move_only_function& operator=(nullptr_t) noexcept;
+//!   template<class F> move_only_function& operator=(F&&);
 //!
-//!   constexpr ~move_only_function();
+//!   ~move_only_function();
 //!
 //!   // \ref{func.wrap.move.inv}, invocation
-//!   constexpr explicit operator bool() const noexcept;
-//!   constexpr R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+//!   explicit operator bool() const noexcept;
+//!   R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 //!
 //!   // \ref{func.wrap.move.util}, utility
-//!   constexpr void swap(move_only_function&) noexcept;
-//!   friend constexpr void swap(move_only_function&, move_only_function&) noexcept;
-//!   friend constexpr bool operator==(const move_only_function&, nullptr_t) noexcept;
+//!   void swap(move_only_function&) noexcept;
+//!   friend void swap(move_only_function&, move_only_function&) noexcept;
+//!   friend bool operator==(const move_only_function&, nullptr_t) noexcept;
 //!
 //! private:
 //!   template<class VT>
@@ -112,14 +112,14 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
 
   public:
     //! \ensures `*this` has no target object.
-    constexpr move_only_function() noexcept {}
+    move_only_function() noexcept {}
     //! \also
-    constexpr move_only_function(std::nullptr_t) noexcept {}
+    move_only_function(std::nullptr_t) noexcept {}
 
     //! \ensures The target object of `*this` is
     //! the target object `f` had before construction, and
     //! `f` is in a valid state with an unspecified value.
-    constexpr move_only_function(move_only_function&& f) noexcept { take(f); }
+    move_only_function(move_only_function&& f) noexcept { take(f); }
 
     //! Let `VT` be `decay_t<F>`.
     //! \constraints
@@ -146,7 +146,7 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     template <class F>
         requires(!std::is_same_v<std::remove_cvref_t<F>, move_only_function>) &&
                 (!detail::is_in_place_type<std::remove_cvref_t<F>>) && (is_callable_from<std::decay_t<F>>)
-    constexpr move_only_function(F&& f) {
+    move_only_function(F&& f) {
         using VT = std::decay_t<F>;
         static_assert(std::is_constructible_v<VT, F>, "move_only_function target must be constructible from F");
         if constexpr (std::is_pointer_v<std::remove_cvref_t<F>> || std::is_member_pointer_v<VT>) {
@@ -175,7 +175,7 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     //! a function pointer or a specialization of `reference_wrapper`.
     template <class T, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, Args...> && (is_callable_from<std::decay_t<T>>)
-    constexpr explicit move_only_function(std::in_place_type_t<T>, Args&&... args) {
+    explicit move_only_function(std::in_place_type_t<T>, Args&&... args) {
         static_assert(std::is_same_v<std::decay_t<T>, T>,
                       "move_only_function in_place_type_t<T> requires decay_t<T> == T");
         emplace<T>(std::forward<Args>(args)...);
@@ -199,7 +199,7 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     template <class T, class U, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, std::initializer_list<U>&, Args...> &&
                  (is_callable_from<std::decay_t<T>>)
-    constexpr explicit move_only_function(std::in_place_type_t<T>, std::initializer_list<U> ilist, Args&&... args) {
+    explicit move_only_function(std::in_place_type_t<T>, std::initializer_list<U> ilist, Args&&... args) {
         static_assert(std::is_same_v<std::decay_t<T>, T>,
                       "move_only_function in_place_type_t<T> requires decay_t<T> == T");
         emplace<T>(ilist, std::forward<Args>(args)...);
@@ -207,14 +207,14 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
 
     //! \effects Equivalent to: `move_only_function(std::move(f)).swap(*this);`
     //! \returns `*this`.
-    constexpr move_only_function& operator=(move_only_function&& f) {
+    move_only_function& operator=(move_only_function&& f) {
         move_only_function(std::move(f)).swap(*this);
         return *this;
     }
 
     //! \effects Destroys the target object of `*this`, if any.
     //! \returns `*this`.
-    constexpr move_only_function& operator=(std::nullptr_t) noexcept {
+    move_only_function& operator=(std::nullptr_t) noexcept {
         reset();
         return *this;
     }
@@ -222,23 +222,23 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     //! \effects Equivalent to: `move_only_function(std::forward<F>(f)).swap(*this);`
     //! \returns `*this`.
     template <class F>
-    constexpr move_only_function& operator=(F&& f) {
+    move_only_function& operator=(F&& f) {
         move_only_function(std::forward<F>(f)).swap(*this);
         return *this;
     }
 
     //! \effects Destroys the target object of `*this`, if any.
-    constexpr ~move_only_function() { reset(); }
+    ~move_only_function() { reset(); }
 
     // \ref{func.wrap.move.inv}, invocation
 
     //! \returns `true` if `*this` has a target object, otherwise `false`.
-    constexpr explicit operator bool() const noexcept { return has_target(); }
+    explicit operator bool() const noexcept { return has_target(); }
 
     // \ref{func.wrap.move.util}, utility
 
     //! \effects Exchanges the target objects of `*this` and `other`.
-    constexpr void swap(move_only_function& other) noexcept {
+    void swap(move_only_function& other) noexcept {
         if (this == &other)
             return;
         move_only_function tmp(std::move(other));
@@ -247,10 +247,10 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     }
 
     //! \effects Equivalent to `f1.swap(f2)`.
-    friend constexpr void swap(move_only_function& f1, move_only_function& f2) noexcept { f1.swap(f2); }
+    friend void swap(move_only_function& f1, move_only_function& f2) noexcept { f1.swap(f2); }
 
     //! \returns `true` if `f` has no target object, otherwise `false`.
-    friend constexpr bool operator==(const move_only_function& f, std::nullptr_t) noexcept { return !f; }
+    friend bool operator==(const move_only_function& f, std::nullptr_t) noexcept { return !f; }
 
   private:
     //! \omit
@@ -327,7 +327,7 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
 //! where `f` is an lvalue designating the target object of `*this` and
 //! `F` is the type of `f`.
 //! \verbatim-itemdecl
-//! constexpr R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+//! R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 
 // \rSec4[func.wrap.move.util]{Utility}
 

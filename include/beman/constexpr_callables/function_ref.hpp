@@ -250,7 +250,7 @@ function_ref(std::constant_wrapper<c, F>, T&&)
 //!     template<class T> function_ref& operator=(T) = delete;
 //!
 //!     // \ref{func.wrap.ref.inv}, invocation
-//!     constexpr R operator()(ArgTypes...) const noexcept(@\placeholder{noex}@);
+//!     R operator()(ArgTypes...) const noexcept(@\placeholder{noex}@);
 //!
 //!   private:
 //!     template<class... T>
@@ -419,7 +419,7 @@ function_ref(std::constant_wrapper<c, F>, T&&)
 
 //! \effects Equivalent to: \tcode{return \exposid{thunk-ptr}(\exposid{bound-entity}, std::forward<ArgTypes>(args)...);}
 //! \verbatim-itemdecl
-//! constexpr R operator()(ArgTypes... args) const noexcept(@\placeholder{noex}@);
+//! R operator()(ArgTypes... args) const noexcept(@\placeholder{noex}@);
 
 // \rSec4[func.wrap.ref.deduct]{Deduction guides}
 
