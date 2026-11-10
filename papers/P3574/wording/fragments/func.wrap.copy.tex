@@ -3,7 +3,7 @@
 \rSec4[func.wrap.copy.general]{General}
 
 \pnum
-The header provides partial specializations of \tcode{copyable\_function} for each combination of the possible replacements of the placeholders \cv{}, \placeholder{ref}, and \placeholder{noex} where
+The header provides partial specializations of \tcode{copyable_function} for each combination of the possible replacements of the placeholders \cv{}, \placeholder{ref}, and \placeholder{noex} where
 \begin{itemize}
 \item \cv{} is either const or empty,
 \item \placeholder{ref} is either \tcode{\&}, \tcode{\&\&}, or empty, and
@@ -61,13 +61,13 @@ namespace std {
 \end{codeblock}
 
 \pnum
-The \tcode{copyable\_function} class template provides polymorphic wrappers that generalize the notion of a callable object\iref{func.def}. These wrappers can store, copy, move, and call arbitrary callable objects, given a call signature.
+The \tcode{copyable_function} class template provides polymorphic wrappers that generalize the notion of a callable object\iref{func.def}. These wrappers can store, copy, move, and call arbitrary callable objects, given a call signature.
 
 \pnum
 \recommended
 Implementations should avoid the use of dynamically allocated memory for a small contained value.
 \begin{note}
-Such small-object optimization can only be applied to a type \tcode{T} for which \tcode{is\_nothrow\_move\_constructible\_v<T>} is \tcode{true}.
+Such small-object optimization can only be applied to a type \tcode{T} for which \tcode{is_nothrow_move_constructible_v<T>} is \tcode{true}.
 \end{note}
 
 \rSec4[func.wrap.copy.ctor]{Constructors, assignments, and destructor}
@@ -115,7 +115,7 @@ constexpr copyable_function(const copyable_function& f);
 
 \pnum
 \throws
-Any exception thrown by the initialization of the target object. May throw \tcode{bad\_alloc}.
+Any exception thrown by the initialization of the target object. May throw \tcode{bad_alloc}.
 \end{itemdescr}
 
 \indexlibraryctor{copyable_function}%
@@ -137,21 +137,21 @@ template<class F>
 
 \begin{itemdescr}
 \pnum
-Let \tcode{VT} be \tcode{decay\_t<F>}.
+Let \tcode{VT} be \tcode{decay_t<F>}.
 
 \pnum
 \constraints
 \begin{itemize}
-\item \tcode{remove\_cvref\_t<F>} is not the same type as \tcode{copyable\_function}, and
-\item \tcode{remove\_cvref\_t<F>} is not a specialization of \tcode{in\_place\_type\_t}, and
+\item \tcode{remove_cvref_t<F>} is not the same type as \tcode{copyable_function}, and
+\item \tcode{remove_cvref_t<F>} is not a specialization of \tcode{in_place_type_t}, and
 \item \tcode{\exposid{is-callable-from}<VT>} is \tcode{true}.
 \end{itemize}
 
 \pnum
 \mandates
 \begin{itemize}
-\item \tcode{is\_constructible\_v<VT, F>} is \tcode{true}, and
-\item \tcode{is\_copy\_constructible\_v<VT>} is \tcode{true}.
+\item \tcode{is_constructible_v<VT, F>} is \tcode{true}, and
+\item \tcode{is_copy_constructible_v<VT>} is \tcode{true}.
 \end{itemize}
 
 \pnum
@@ -164,13 +164,13 @@ Let \tcode{VT} be \tcode{decay\_t<F>}.
 \begin{itemize}
 \item \tcode{f} is a null function pointer value, or
 \item \tcode{f} is a null member pointer value, or
-\item \tcode{remove\_cvref\_t<F>} is a specialization of the \tcode{copyable\_function} class template, and \tcode{f} has no target object.
+\item \tcode{remove_cvref_t<F>} is a specialization of the \tcode{copyable_function} class template, and \tcode{f} has no target object.
 \end{itemize}
 Otherwise, \tcode{*this} has a target object of type \tcode{VT} direct-non-list-initialized with \tcode{std::forward<F>(f)}.
 
 \pnum
 \throws
-Any exception thrown by the initialization of the target object. May throw \tcode{bad\_alloc} unless \tcode{VT} is a function pointer or a specialization of \tcode{reference\_wrapper}.
+Any exception thrown by the initialization of the target object. May throw \tcode{bad_alloc} unless \tcode{VT} is a function pointer or a specialization of \tcode{reference_wrapper}.
 \end{itemdescr}
 
 \indexlibraryctor{copyable_function}%
@@ -181,12 +181,12 @@ template<class T, class... Args>
 
 \begin{itemdescr}
 \pnum
-Let \tcode{VT} be \tcode{decay\_t<T>}.
+Let \tcode{VT} be \tcode{decay_t<T>}.
 
 \pnum
 \constraints
 \begin{itemize}
-\item \tcode{is\_constructible\_v<VT, Args...>} is \tcode{true}, and
+\item \tcode{is_constructible_v<VT, Args...>} is \tcode{true}, and
 \item \tcode{\exposid{is-callable-from}<VT>} is \tcode{true}.
 \end{itemize}
 
@@ -194,7 +194,7 @@ Let \tcode{VT} be \tcode{decay\_t<T>}.
 \mandates
 \begin{itemize}
 \item \tcode{VT} is the same type as \tcode{T}, and
-\item \tcode{is\_copy\_constructible\_v<VT>} is \tcode{true}.
+\item \tcode{is_copy_constructible_v<VT>} is \tcode{true}.
 \end{itemize}
 
 \pnum
@@ -207,7 +207,7 @@ Let \tcode{VT} be \tcode{decay\_t<T>}.
 
 \pnum
 \throws
-Any exception thrown by the initialization of the target object. May throw \tcode{bad\_alloc} unless \tcode{VT} is a pointer or a specialization of \tcode{reference\_wrapper}.
+Any exception thrown by the initialization of the target object. May throw \tcode{bad_alloc} unless \tcode{VT} is a pointer or a specialization of \tcode{reference_wrapper}.
 \end{itemdescr}
 
 \indexlibraryctor{copyable_function}%
@@ -218,12 +218,12 @@ template<class T, class U, class... Args>
 
 \begin{itemdescr}
 \pnum
-Let \tcode{VT} be \tcode{decay\_t<T>}.
+Let \tcode{VT} be \tcode{decay_t<T>}.
 
 \pnum
 \constraints
 \begin{itemize}
-\item \tcode{is\_constructible\_v<VT, initializer\_list<U>\&, Args...>} is \tcode{true}, and
+\item \tcode{is_constructible_v<VT, initializer_list<U>\&, Args...>} is \tcode{true}, and
 \item \tcode{\exposid{is-callable-from}<VT>} is \tcode{true}.
 \end{itemize}
 
@@ -231,7 +231,7 @@ Let \tcode{VT} be \tcode{decay\_t<T>}.
 \mandates
 \begin{itemize}
 \item \tcode{VT} is the same type as \tcode{T}, and
-\item \tcode{is\_copy\_constructible\_v<VT>} is \tcode{true}.
+\item \tcode{is_copy_constructible_v<VT>} is \tcode{true}.
 \end{itemize}
 
 \pnum
@@ -244,7 +244,7 @@ Let \tcode{VT} be \tcode{decay\_t<T>}.
 
 \pnum
 \throws
-Any exception thrown by the initialization of the target object. May throw \tcode{bad\_alloc} unless \tcode{VT} is a pointer or a specialization of \tcode{reference\_wrapper}.
+Any exception thrown by the initialization of the target object. May throw \tcode{bad_alloc} unless \tcode{VT} is a pointer or a specialization of \tcode{reference_wrapper}.
 \end{itemdescr}
 
 \indexlibrarymember{operator=}{copyable_function}%
@@ -255,7 +255,7 @@ constexpr copyable_function& operator=(const copyable_function& f);
 \begin{itemdescr}
 \pnum
 \effects
-Equivalent to: \tcode{copyable\_function(f).swap(*this);}
+Equivalent to: \tcode{copyable_function(f).swap(*this);}
 
 \pnum
 \returns
@@ -270,7 +270,7 @@ constexpr copyable_function& operator=(copyable_function&& f);
 \begin{itemdescr}
 \pnum
 \effects
-Equivalent to: \tcode{copyable\_function(std::move(f)).swap(*this);}
+Equivalent to: \tcode{copyable_function(std::move(f)).swap(*this);}
 
 \pnum
 \returns
@@ -301,7 +301,7 @@ template<class F>
 \begin{itemdescr}
 \pnum
 \effects
-Equivalent to: \tcode{copyable\_function(std::forward<F>(f)).swap(*this);}
+Equivalent to: \tcode{copyable_function(std::forward<F>(f)).swap(*this);}
 
 \pnum
 \returns
