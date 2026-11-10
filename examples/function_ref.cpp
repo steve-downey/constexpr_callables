@@ -4,9 +4,7 @@
 
 #include <functional>
 
-int twice(int value) noexcept {
-    return 2 * value;
-}
+int twice(int value) noexcept { return 2 * value; }
 
 int main() {
     beman::constexpr_callables::function_ref<int(int) noexcept> callable(std::cw<&twice>);
