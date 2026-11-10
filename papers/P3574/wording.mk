@@ -73,11 +73,12 @@ if [ $$status -ne 0 ] || grep -q -E ': (warning|error):' $(WORDING_FINDINGS); th
 fi
 endef
 
-# The fragments of $(1)/fragments assembled, in clause order, into
-# $(1)/wording.tex. Written to a temporary first, so that a half-written file
-# is never mistaken for a finished one.
+# The fragments of $(1)/fragments assembled, in clause order, after the
+# preamble $(2) (preamble.tex if empty), into $(1)/wording.tex. Written to a
+# temporary first, so that a half-written file is never mistaken for a
+# finished one.
 define assemble_wording
-cat $(WORDING_DIR)/preamble.tex > $(1)/wording.tex.tmp
+cat $(or $(2),$(WORDING_DIR)/preamble.tex) > $(1)/wording.tex.tmp
 for clause in $(WORDING_CLAUSES); do \
     printf '\n' >> $(1)/wording.tex.tmp; \
     cat $(1)/fragments/$$clause.tex >> $(1)/wording.tex.tmp; \
@@ -123,3 +124,34 @@ wording-check: ## Check the checked-in wording matches what the headers generate
 	for fragment in $(notdir $(WORDING_FRAGMENTS)); do \
 	    diff $(WORDING_DIR)/fragments/$$fragment $(BUILD_DIR)/wording-check/fragments/$$fragment || exit 1; \
 	done
+
+# ---- The wording as a diff against the working draft ----------------------
+#
+# The same wording, marked with \added and \removed against a baseline: a git
+# revision of this repository whose headers carry the wording P3574 modifies.
+# The tag p3574-baseline-draft is the working draft's [func.wrap.move],
+# [func.wrap.copy], and [func.wrap.ref] as they are, without P3574's
+# constexpr. specgen checks the revision out into a scratch tree for the run,
+# so the tag has to be in the clone.
+#
+# WORDING_DIFF_CONTEXT is specgen's --diff-context: changed (whole changed
+# subclauses), items (unchanged runs of items elided as [...]), or all.
+#
+# A baseline revision is not a file make can date, so the target always runs.
+
+WORDING_BASELINE ?= p3574-baseline-draft
+WORDING_DIFF_CONTEXT ?= changed
+WORDING_DIFF_DIR := $(WORDING_DIR)/diff
+WORDING_DIFF_STAGE := $(BUILD_DIR)/wording-diff-stage
+
+.PHONY: wording-diff
+wording-diff: ## Regenerate papers/P3574/wording/diff/, the wording marked against the working draft
+	@rm -rf $(WORDING_DIFF_STAGE)
+	@mkdir -p $(WORDING_DIFF_STAGE) $(WORDING_DIFF_DIR)/fragments
+	@$(call specgen_wording,$(WORDING_DIFF_STAGE), \
+	    --baseline-rev $(WORDING_BASELINE) --diff-context $(WORDING_DIFF_CONTEXT))
+	@for clause in $(WORDING_CLAUSES); do \
+	    cp $(WORDING_DIFF_STAGE)/$$clause.tex $(WORDING_DIFF_DIR)/fragments/$$clause.tex; \
+	done
+	@$(call assemble_wording,$(WORDING_DIFF_DIR),$(WORDING_DIR)/diff-preamble.tex)
+	@echo "Wrote $(WORDING_DIFF_DIR)/wording.tex"

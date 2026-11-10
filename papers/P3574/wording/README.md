@@ -48,6 +48,27 @@ doesn't yet state: `function_ref`'s call operator is `constexpr` too.
 The same subclauses, one file per `\rSec3`, named for its stable name, for
 `\input` into a paper's own `[func.wrap]`.
 
+## `diff/`
+
+The same wording marked against the working draft, with `\added` and
+`\removed`, as the paper presents it: `diff/wording.tex` (after
+`diff-preamble.tex`) and `diff/fragments/`. Regenerate it with
+
+```sh
+make wording-diff                              # whole changed subclauses
+make wording-diff WORDING_DIFF_CONTEXT=items   # unchanged items elided as [...]
+```
+
+The baseline is the git tag `p3574-baseline-draft`, which specgen checks out
+into a scratch tree for the run, so the tag has to be in the clone (`git fetch
+--tags`). It's the branch `p3574-baseline`: these headers with P3574's
+`constexpr` removed. Its generated wording matches the working draft's
+[func.wrap.move], [func.wrap.copy], and [func.wrap.ref] word for word, apart
+from line-breaking hints and `\exposid` versus `\exposidnc`. It isn't meant to
+be merged.
+
+The target always runs: a baseline revision isn't a file make can date.
+
 ## How the headers carry the wording
 
 - Each owning wrapper is one partial specialization standing for all twelve,
