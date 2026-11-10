@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 void test() {
     auto                     move_only = [p = std::make_unique<int>(1)] { return *p; };

@@ -16,10 +16,8 @@
 
 namespace {
 
-using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
-using smd::constexpr_callables::nontype_t;
-using smd::constexpr_callables::testing::constant_eval;
+using beman::constexpr_callables::function_ref;
+using beman::constexpr_callables::testing::constant_eval;
 
 // ---------------------------------------------------------------------------
 // Test callables
@@ -216,31 +214,31 @@ TEST(FunctionRef, RuntimeBindsFunctionLvalue) {
 }
 
 // ---------------------------------------------------------------------------
-// [func.wrap.ref.ctor] function_ref(nontype_t<f>)
+// [func.wrap.ref.ctor] function_ref(decltype(std::cw<f>))
 // ---------------------------------------------------------------------------
 
-TEST(FunctionRef, NontypeFunctionPointer) {
+TEST(FunctionRef, ConstantWrapperFunctionPointer) {
     constexpr auto probe = [] {
-        function_ref<int(int)> f(nontype<&twice>);
+        function_ref<int(int)> f(std::cw<&twice>);
         return f(21);
     };
     EXPECT_EQ(constant_eval(probe), 42);
     EXPECT_EQ(probe(), 42);
 }
 
-TEST(FunctionRef, NontypeLambda) {
+TEST(FunctionRef, ConstantWrapperLambda) {
     constexpr auto probe = [] {
-        function_ref<int(int) const noexcept> f(nontype<[](int x) noexcept { return x * x; }>);
+        function_ref<int(int) const noexcept> f(std::cw<[](int x) noexcept { return x * x; }>);
         return f(6);
     };
     EXPECT_EQ(constant_eval(probe), 36);
     EXPECT_EQ(probe(), 36);
 }
 
-TEST(FunctionRef, NontypeMemberFunctionTakesObjectAsArgument) {
+TEST(FunctionRef, ConstantWrapperMemberFunctionTakesObjectAsArgument) {
     constexpr auto probe = [] {
         accumulator                          acc;
-        function_ref<int(accumulator&, int)> f(nontype<&accumulator::add>);
+        function_ref<int(accumulator&, int)> f(std::cw<&accumulator::add>);
         f(acc, 2);
         return f(acc, 3);
     };
@@ -249,13 +247,13 @@ TEST(FunctionRef, NontypeMemberFunctionTakesObjectAsArgument) {
 }
 
 // ---------------------------------------------------------------------------
-// [func.wrap.ref.ctor] function_ref(nontype_t<f>, U&&)
+// [func.wrap.ref.ctor] function_ref(decltype(std::cw<f>), U&&)
 // ---------------------------------------------------------------------------
 
-TEST(FunctionRef, NontypeBoundToObjectReference) {
+TEST(FunctionRef, ConstantWrapperBoundToObjectReference) {
     constexpr auto probe = [] {
         accumulator            acc;
-        function_ref<int(int)> f(nontype<&accumulator::add>, acc);
+        function_ref<int(int)> f(std::cw<&accumulator::add>, acc);
         f(2);
         f(3);
         return acc.total;
@@ -264,20 +262,20 @@ TEST(FunctionRef, NontypeBoundToObjectReference) {
     EXPECT_EQ(probe(), 5);
 }
 
-TEST(FunctionRef, NontypeBoundToConstObjectReference) {
+TEST(FunctionRef, ConstantWrapperBoundToConstObjectReference) {
     constexpr auto probe = [] {
         const accumulator         acc{.total = 9};
-        function_ref<int() const> f(nontype<&accumulator::get>, acc);
+        function_ref<int() const> f(std::cw<&accumulator::get>, acc);
         return f();
     };
     EXPECT_EQ(constant_eval(probe), 9);
     EXPECT_EQ(probe(), 9);
 }
 
-TEST(FunctionRef, NontypeBoundToObjectForFreeFunction) {
+TEST(FunctionRef, ConstantWrapperBoundToObjectForFreeFunction) {
     constexpr auto probe = [] {
         accumulator            acc;
-        function_ref<int(int)> f(nontype<&add_to_ref>, acc);
+        function_ref<int(int)> f(std::cw<&add_to_ref>, acc);
         f(4);
         return acc.total;
     };
@@ -285,10 +283,10 @@ TEST(FunctionRef, NontypeBoundToObjectForFreeFunction) {
     EXPECT_EQ(probe(), 4);
 }
 
-TEST(FunctionRef, NontypeBoundToObjectMemberData) {
+TEST(FunctionRef, ConstantWrapperBoundToObjectMemberData) {
     constexpr auto probe = [] {
         accumulator         acc{.total = 11};
-        function_ref<int()> f(nontype<&accumulator::total>, acc);
+        function_ref<int()> f(std::cw<&accumulator::total>, acc);
         return f();
     };
     EXPECT_EQ(constant_eval(probe), 11);
@@ -296,13 +294,13 @@ TEST(FunctionRef, NontypeBoundToObjectMemberData) {
 }
 
 // ---------------------------------------------------------------------------
-// [func.wrap.ref.ctor] function_ref(nontype_t<f>, cv T*)
+// [func.wrap.ref.ctor] function_ref(decltype(std::cw<f>), cv T*)
 // ---------------------------------------------------------------------------
 
-TEST(FunctionRef, NontypeBoundToPointerForMemberFunction) {
+TEST(FunctionRef, ConstantWrapperBoundToPointerForMemberFunction) {
     constexpr auto probe = [] {
         accumulator            acc;
-        function_ref<int(int)> f(nontype<&accumulator::add>, &acc);
+        function_ref<int(int)> f(std::cw<&accumulator::add>, &acc);
         f(6);
         return acc.total;
     };
@@ -310,10 +308,10 @@ TEST(FunctionRef, NontypeBoundToPointerForMemberFunction) {
     EXPECT_EQ(probe(), 6);
 }
 
-TEST(FunctionRef, NontypeBoundToPointerForFreeFunction) {
+TEST(FunctionRef, ConstantWrapperBoundToPointerForFreeFunction) {
     constexpr auto probe = [] {
         accumulator            acc;
-        function_ref<int(int)> f(nontype<&add_to>, &acc);
+        function_ref<int(int)> f(std::cw<&add_to>, &acc);
         f(7);
         return acc.total;
     };
@@ -321,10 +319,10 @@ TEST(FunctionRef, NontypeBoundToPointerForFreeFunction) {
     EXPECT_EQ(probe(), 7);
 }
 
-TEST(FunctionRef, NontypeBoundToConstPointer) {
+TEST(FunctionRef, ConstantWrapperBoundToConstPointer) {
     constexpr auto probe = [] {
         const accumulator         acc{.total = 8};
-        function_ref<int() const> f(nontype<&accumulator::get>, &acc);
+        function_ref<int() const> f(std::cw<&accumulator::get>, &acc);
         return f();
     };
     EXPECT_EQ(constant_eval(probe), 8);
@@ -362,13 +360,86 @@ TEST(FunctionRef, CopyAssignmentRebinds) {
     EXPECT_EQ(probe(), 2);
 }
 
+// ---------------------------------------------------------------------------
+// [func.wrap.ref.ctor] function_ref(F&&) from another specialization
+// ---------------------------------------------------------------------------
+// When is-convertible-from-specialization<remove_cv_t<T>> holds, the new
+// function_ref takes the other's bound entity and thunk: it calls what the
+// other was bound to, and does not follow the other if it is later rebound.
+// Otherwise the other is an ordinary callable object, bound by reference.
+
+TEST(FunctionRef, FromConvertibleSpecializationCopiesBinding) {
+    constexpr auto probe = [] {
+        auto                                  one    = [](int) noexcept { return 1; };
+        auto                                  two    = [](int) noexcept { return 2; };
+        function_ref<int(int) const noexcept> source = one;
+        function_ref<int(int)>                copy(source);
+        source = function_ref<int(int) const noexcept>(two);
+        return copy(0) * 10 + source(0);
+    };
+    EXPECT_EQ(constant_eval(probe), 12);
+    EXPECT_EQ(probe(), 12);
+}
+
+TEST(FunctionRef, FromNonConvertibleSpecializationRefersToIt) {
+    // Adding const is not a conversion, so `wrapper` binds `source` itself.
+    constexpr auto probe = [] {
+        auto                         one    = [](int) { return 1; };
+        auto                         two    = [](int) { return 2; };
+        function_ref<int(int)>       source = one;
+        function_ref<int(int) const> wrapper(source);
+        source = function_ref<int(int)>(two);
+        return wrapper(0);
+    };
+    EXPECT_EQ(constant_eval(probe), 2);
+    EXPECT_EQ(probe(), 2);
+}
+
+TEST(FunctionRef, AssignConvertibleSpecializationCopiesBinding) {
+    constexpr auto probe = [] {
+        auto                            one    = [](int) noexcept { return 1; };
+        auto                            two    = [](int) { return 2; };
+        function_ref<int(int) noexcept> source = one;
+        function_ref<int(int)>          f      = two;
+        f                                      = source;
+        return f(0);
+    };
+    EXPECT_EQ(constant_eval(probe), 1);
+    EXPECT_EQ(probe(), 1);
+}
+
+// Converting drops noexcept and adds nothing; it never drops const or adds
+// noexcept.
+static_assert(std::is_assignable_v<function_ref<int()>&, function_ref<int() const noexcept>>);
+static_assert(std::is_assignable_v<function_ref<int()>&, function_ref<int() noexcept>>);
+static_assert(std::is_assignable_v<function_ref<int()>&, function_ref<int() const>>);
+static_assert(!std::is_assignable_v<function_ref<int() const>&, function_ref<int()>>);
+static_assert(!std::is_assignable_v<function_ref<int() noexcept>&, function_ref<int()>>);
+// A different signature is not a specialization it converts from.
+static_assert(!std::is_assignable_v<function_ref<long()>&, function_ref<int()>>);
+
+// ---------------------------------------------------------------------------
+// [func.wrap.ref.ctor] function_ref(constant_wrapper<c, F>): the call Mandate
+// ---------------------------------------------------------------------------
+// Ill-formed only when every argument is a constexpr-param and the call yields
+// a constant; a call that cannot be constant-evaluated is accepted.
+
+namespace {
+int runtime_only(decltype(std::cw<1>) one) { return one.value + 1; }
+} // namespace
+
+TEST(FunctionRef, RuntimeConstantWrapperWithConstexprParamArgumentsAndRuntimeCall) {
+    function_ref<int(decltype(std::cw<1>))> f(std::cw<&runtime_only>);
+    EXPECT_EQ(f(std::cw<1>), 2);
+}
+
 // operator=(T) is deleted only for T that is not function_ref, a pointer, or
-// a nontype_t; those assign through a converting constructor.
-TEST(FunctionRef, AssignNontypeRebinds) {
+// a constant_wrapper; those assign through a converting constructor.
+TEST(FunctionRef, AssignConstantWrapperRebinds) {
     constexpr auto probe = [] {
         auto                   one = [](int) { return 1; };
         function_ref<int(int)> f   = one;
-        f                          = nontype<&twice>;
+        f                          = std::cw<&twice>;
         return f(4);
     };
     EXPECT_EQ(constant_eval(probe), 8);
@@ -384,7 +455,7 @@ TEST(FunctionRef, RuntimeAssignFunctionPointerRebinds) {
 
 static_assert(!std::is_assignable_v<function_ref<int(int)>&, decltype([](int x) { return x; })>);
 static_assert(std::is_assignable_v<function_ref<int(int)>&, int (*)(int)>);
-static_assert(std::is_assignable_v<function_ref<int(int)>&, nontype_t<&twice>>);
+static_assert(std::is_assignable_v<function_ref<int(int)>&, decltype(std::cw<&twice>)>);
 static_assert(std::is_assignable_v<function_ref<int(int)>&, const function_ref<int(int)>&>);
 
 // ---------------------------------------------------------------------------
@@ -399,11 +470,11 @@ TEST(FunctionRef, RuntimeDeduceFromFunctionPointer) {
     EXPECT_EQ(f(1) + n(1), 3);
 }
 
-TEST(FunctionRef, DeduceFromNontypeFunction) {
+TEST(FunctionRef, DeduceFromConstantWrapperFunction) {
     constexpr auto probe = [] {
-        function_ref f(nontype<&twice>);
+        function_ref f(std::cw<&twice>);
         static_assert(std::is_same_v<decltype(f), function_ref<int(int)>>);
-        function_ref n(nontype<&increment>);
+        function_ref n(std::cw<&increment>);
         static_assert(std::is_same_v<decltype(n), function_ref<int(int) noexcept>>);
         return f(2) + n(2);
     };
@@ -411,16 +482,16 @@ TEST(FunctionRef, DeduceFromNontypeFunction) {
     EXPECT_EQ(probe(), 7);
 }
 
-TEST(FunctionRef, DeduceFromNontypeMemberFunctionAndObject) {
+TEST(FunctionRef, DeduceFromConstantWrapperMemberFunctionAndObject) {
     constexpr auto probe = [] {
         accumulator  acc;
-        function_ref add(nontype<&accumulator::add>, acc);
+        function_ref add(std::cw<&accumulator::add>, acc);
         static_assert(std::is_same_v<decltype(add), function_ref<int(int)>>);
-        function_ref get(nontype<&accumulator::get>, acc);
+        function_ref get(std::cw<&accumulator::get>, acc);
         static_assert(std::is_same_v<decltype(get), function_ref<int()>>);
-        function_ref get_noexcept(nontype<&accumulator::get_noexcept>, acc);
+        function_ref get_noexcept(std::cw<&accumulator::get_noexcept>, acc);
         static_assert(std::is_same_v<decltype(get_noexcept), function_ref<int() noexcept>>);
-        function_ref add_lref(nontype<&accumulator::add_lref>, acc);
+        function_ref add_lref(std::cw<&accumulator::add_lref>, acc);
         static_assert(std::is_same_v<decltype(add_lref), function_ref<int(int)>>);
         add(1);
         add_lref(2);
@@ -430,11 +501,11 @@ TEST(FunctionRef, DeduceFromNontypeMemberFunctionAndObject) {
     EXPECT_EQ(probe(), 6);
 }
 
-TEST(FunctionRef, DeduceFromNontypeMemberDataAndObject) {
+TEST(FunctionRef, DeduceFromConstantWrapperMemberDataAndObject) {
     constexpr auto probe = [] {
         accumulator  acc{.total = 5};
-        function_ref f(nontype<&accumulator::total>, acc);
-        static_assert(std::is_same_v<decltype(f), function_ref<int&()>>);
+        function_ref f(std::cw<&accumulator::total>, acc);
+        static_assert(std::is_same_v<decltype(f), function_ref<int&() noexcept>>);
         f() += 1;
         return acc.total;
     };
@@ -442,10 +513,10 @@ TEST(FunctionRef, DeduceFromNontypeMemberDataAndObject) {
     EXPECT_EQ(probe(), 6);
 }
 
-TEST(FunctionRef, DeduceFromNontypeFunctionAndFirstArgument) {
+TEST(FunctionRef, DeduceFromConstantWrapperFunctionAndFirstArgument) {
     constexpr auto probe = [] {
         accumulator  acc;
-        function_ref f(nontype<&add_to_ref>, acc);
+        function_ref f(std::cw<&add_to_ref>, acc);
         static_assert(std::is_same_v<decltype(f), function_ref<int(int)>>);
         f(9);
         return acc.total;

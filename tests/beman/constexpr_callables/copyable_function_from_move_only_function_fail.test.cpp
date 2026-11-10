@@ -6,9 +6,9 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::copyable_function;
+using beman::constexpr_callables::copyable_function;
 
 #include <beman/constexpr_callables/move_only_function.hpp>
-void test(smd::constexpr_callables::move_only_function<int()>&& m) {
+void test(beman::constexpr_callables::move_only_function<int()>&& m) {
     copyable_function<int()> f(std::move(m)); // must not compile
 }

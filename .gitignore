@@ -30,3 +30,6 @@
 
 # Claude Code local settings
 /.claude/
+
+# specgen dependency files from make wording
+/papers/.deps/

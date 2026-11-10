@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// NEGATIVE: is-invocable-using<F> is false
-// CLAUSE: [func.wrap.ref.ctor] function_ref(nontype_t<f>) Constraints
+// NEGATIVE: f.value is a null function pointer
+// CLAUSE: [func.wrap.ref.ctor] function_ref(constant_wrapper<c, F>) Mandates
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
+#include <utility>
+
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;
@@ -14,5 +15,5 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    function_ref<int(object*)> f(nontype<&free_function>); // must not compile
+    function_ref<int(int)> f(std::cw<static_cast<int (*)(int)>(nullptr)>); // must not compile
 }

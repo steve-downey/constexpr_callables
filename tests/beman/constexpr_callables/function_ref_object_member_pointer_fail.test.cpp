@@ -3,8 +3,7 @@
 // CLAUSE: [func.wrap.ref.ctor] function_ref(F&&) Constraints
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;
@@ -14,6 +13,6 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    auto                      pmf = &object::member;
+    auto                            pmf = &object::member;
     function_ref<int(object&, int)> f(pmf); // must not compile
 }

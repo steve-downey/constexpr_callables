@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 // NEGATIVE: is_rvalue_reference_v<U&&> is true: binding an rvalue object would dangle
-// CLAUSE: [func.wrap.ref.ctor] function_ref(nontype_t<f>, U&&) Constraints
+// CLAUSE: [func.wrap.ref.ctor] function_ref(constant_wrapper<c, F>, U&&) Constraints
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
+#include <utility>
+
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;
@@ -14,5 +15,5 @@ int free_function(int x) { return x; }
 int free_function_throws(int x) { return x; }
 
 void test() {
-    function_ref<int(int)> f(nontype<&object::member>, object{}); // must not compile
+    function_ref<int(int)> f(std::cw<&object::member>, object{}); // must not compile
 }

@@ -54,7 +54,7 @@
 #ifndef BEMAN_CONSTEXPR_CALLABLES_TESTING_CONSTANT_EVAL_HPP
 #define BEMAN_CONSTEXPR_CALLABLES_TESTING_CONSTANT_EVAL_HPP
 
-namespace smd::constexpr_callables::testing {
+namespace beman::constexpr_callables::testing {
 
 // Constant-evaluate `probe` and return its result as an ordinary value.
 template <class Probe>
@@ -62,6 +62,6 @@ consteval auto constant_eval(Probe probe) {
     return probe();
 }
 
-} // namespace smd::constexpr_callables::testing
+} // namespace beman::constexpr_callables::testing
 
 #endif // BEMAN_CONSTEXPR_CALLABLES_TESTING_CONSTANT_EVAL_HPP

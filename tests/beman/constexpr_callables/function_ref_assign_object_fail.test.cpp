@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
-// NEGATIVE: assigning a callable object, which is not function_ref, a pointer, or a nontype_t
-// CLAUSE: [func.wrap.ref.ctor] operator=(T) deleted
+// NEGATIVE: assigning a callable object, which is not a function_ref it converts from, a pointer, or a
+// constant_wrapper CLAUSE: [func.wrap.ref.ctor] operator=(T) deleted
 #include <beman/constexpr_callables/function_ref.hpp>
 
-using smd::constexpr_callables::function_ref;
-using smd::constexpr_callables::nontype;
+using beman::constexpr_callables::function_ref;
 
 struct object {
     int value = 0;

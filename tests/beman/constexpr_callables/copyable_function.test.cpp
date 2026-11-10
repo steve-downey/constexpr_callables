@@ -19,8 +19,8 @@
 
 namespace {
 
-using smd::constexpr_callables::copyable_function;
-using smd::constexpr_callables::testing::constant_eval;
+using beman::constexpr_callables::copyable_function;
+using beman::constexpr_callables::testing::constant_eval;
 
 // ---------------------------------------------------------------------------
 // Test callables

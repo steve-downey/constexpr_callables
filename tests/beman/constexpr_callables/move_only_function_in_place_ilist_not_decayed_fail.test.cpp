@@ -6,7 +6,7 @@
 #include <memory>
 #include <utility>
 
-using smd::constexpr_callables::move_only_function;
+using beman::constexpr_callables::move_only_function;
 
 #include <initializer_list>
 struct ilist_callable {
