@@ -127,7 +127,6 @@ class move_only_function<Sig> : public detail::call_base<move_only_function<Sig>
     //! \item `remove_cvref_t<F>` is not the same type as `move_only_function`, and
     //! \item `remove_cvref_t<F>` is not a specialization of `in_place_type_t`, and
     //! \item `is_callable_from<VT>` is `true`.
-    //! \mandates `is_constructible_v<VT, F>` is `true`.
     //! \expects `VT` meets the \oldconcept{Destructible} requirements, and
     //! if `is_move_constructible_v<VT>` is `true`,
     //! `VT` meets the \oldconcept{MoveConstructible} requirements.
