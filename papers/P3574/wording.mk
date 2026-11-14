@@ -19,6 +19,27 @@ SPECGEN ?= specgen
 # g++-16 belongs to; override with SPECGEN_GCC_TOOLCHAIN=<prefix>.
 SPECGEN_GCC_TOOLCHAIN ?= $(patsubst %/bin/,%,$(dir $(realpath $(shell command -v g++-16 2> /dev/null))))
 
+# The C++ working draft's LaTeX source, which the headers' `\asdraft` takes the
+# unchanged wording from: a checkout of github.com/cplusplus/draft, named by its
+# `source` directory. specgen records no revision, so the revision the wording
+# is written against is WORDING_DRAFT_COMMIT here, and a checkout at another
+# one is warned about and not refused: rebasing the paper onto a newer draft is
+# a deliberate act, and the diff then shows what moved.
+WORDING_DRAFT_SOURCE ?= ../draft/source
+WORDING_DRAFT_COMMIT := 2594eff0
+
+# Whether the draft is there to read, and a warning when it is not the revision
+# the wording is written against.
+define wording_draft_present
+test -f $(WORDING_DRAFT_SOURCE)/utilities.tex
+endef
+define wording_draft_revision_check
+rev=$$(git -C $(WORDING_DRAFT_SOURCE) rev-parse --short=8 HEAD 2> /dev/null); \
+if [ -n "$$rev" ] && [ "$$rev" != "$(WORDING_DRAFT_COMMIT)" ]; then \
+    echo "warning: $(WORDING_DRAFT_SOURCE) is at $$rev; the wording is written against $(WORDING_DRAFT_COMMIT)" >&2; \
+fi
+endef
+
 WORDING_DIR := papers/P3574/wording
 
 WORDING_HEADERS := $(addprefix include/beman/constexpr_callables/, \
@@ -54,6 +75,15 @@ endif
 # --validate prints notes as well as warnings and errors. The notes are
 # informational (helpers that are \omit'ted and named by no wording), so the
 # run fails on any warning or error, and passes notes through.
+#
+# One class of warning is let through: the draft importer keeps a macro it has
+# no IR kind for as raw LaTeX and says so. [func.wrap.ref] is authored in
+# function_ref.hpp, so the draft's own text for it is only the diff's baseline,
+# where the latex backend writes those macros back as they were. They are
+# \ref, \cvqual, \exposconcept, \newline, and \opt; anything else the importer
+# reports still fails the run. Drop the filter when the importer reads them.
+WORDING_ACCEPTED_IMPORT_WARNINGS := ^specgen: warning: func\.wrap\.ref[a-z.]*: (\\[a-z]+ has no IR kind|a macro in \\tcode is kept as raw LaTeX: \\(cvqual|newline|opt))
+
 define specgen_wording
 mkdir -p $(dir $(WORDING_FINDINGS)); \
 $(SPECGEN) generate $(WORDING_HEADERS) \
@@ -67,7 +97,7 @@ $(SPECGEN) generate $(WORDING_HEADERS) \
     > /dev/null 2> $(WORDING_FINDINGS); \
 status=$$?; \
 cat $(WORDING_FINDINGS) >&2; \
-if [ $$status -ne 0 ] || grep -q -E ': (warning|error):' $(WORDING_FINDINGS); then \
+if [ $$status -ne 0 ] || grep -v -E '$(WORDING_ACCEPTED_IMPORT_WARNINGS)' $(WORDING_FINDINGS) | grep -q -E ': (warning|error):'; then \
     echo "error: specgen reported findings; fix the header markup" >&2; \
     exit 1; \
 fi
@@ -90,17 +120,19 @@ endef
 # it once per fragment. Without specgen the checked-in fragments are used as
 # they are, with a warning, so the paper still builds.
 $(WORDING_FRAGMENTS) &: $(WORDING_HEADERS) papers/P3574/wording.mk
-	@if command -v $(SPECGEN) > /dev/null 2>&1; then \
+	@if command -v $(SPECGEN) > /dev/null 2>&1 && $(wording_draft_present); then \
+	    $(wording_draft_revision_check); \
 	    rm -rf $(WORDING_STAGE) && \
 	    mkdir -p papers/.deps $(WORDING_STAGE) $(WORDING_DIR)/fragments && \
 	    $(call specgen_wording,$(WORDING_STAGE), \
+	        --inherit-draft $(WORDING_DRAFT_SOURCE) \
 	        --depfile papers/.deps/wording.d \
 	        $(addprefix --dep-target ,$(WORDING_FRAGMENTS))) && \
 	    for clause in $(WORDING_CLAUSES); do \
 	        cp $(WORDING_STAGE)/$$clause.tex $(WORDING_DIR)/fragments/$$clause.tex; \
 	    done; \
 	else \
-	    echo "warning: '$(SPECGEN)' not found; using the checked-in wording" >&2; \
+	    echo "warning: '$(SPECGEN)' or the draft's source ($(WORDING_DRAFT_SOURCE)) not found; using the checked-in wording" >&2; \
 	fi
 
 $(WORDING_DIR)/wording.tex: $(WORDING_DIR)/preamble.tex $(WORDING_FRAGMENTS)
@@ -118,9 +150,12 @@ wording: $(WORDING_DIR)/wording.tex ## Regenerate papers/P3574/wording/ from the
 # is never touched.
 .PHONY: wording-check
 wording-check: ## Check the checked-in wording matches what the headers generate
+	@$(wording_draft_present) || { echo "error: the draft's source is not at $(WORDING_DRAFT_SOURCE); set WORDING_DRAFT_SOURCE" >&2; exit 1; }
+	@$(wording_draft_revision_check)
 	rm -rf $(BUILD_DIR)/wording-check
 	mkdir -p $(BUILD_DIR)/wording-check/fragments
-	@$(call specgen_wording,$(BUILD_DIR)/wording-check/fragments)
+	@$(call specgen_wording,$(BUILD_DIR)/wording-check/fragments, \
+	    --inherit-draft $(WORDING_DRAFT_SOURCE))
 	@$(call assemble_wording,$(BUILD_DIR)/wording-check)
 	diff $(WORDING_DIR)/wording.tex $(BUILD_DIR)/wording-check/wording.tex
 	for fragment in $(notdir $(WORDING_FRAGMENTS)); do \
@@ -129,29 +164,29 @@ wording-check: ## Check the checked-in wording matches what the headers generate
 
 # ---- The wording as a diff against the working draft ----------------------
 #
-# The same wording, marked with \added and \removed against a baseline: a git
-# revision of this repository whose headers carry the wording P3574 modifies.
-# The tag p3574-baseline-draft is the working draft's [func.wrap.move],
-# [func.wrap.copy], and [func.wrap.ref] as they are, without P3574's
-# constexpr. specgen checks the revision out into a scratch tree for the run,
-# so the tag has to be in the clone.
+# The same wording, marked with \added and \removed against the working draft
+# itself: specgen reads the three clauses from the draft's LaTeX, by stable
+# name, and diffs the headers' wording against them. What a header does not
+# change is the draft's own text, inherited with `\asdraft`, so the diff is
+# what P3574 changes and nothing else.
 #
 # WORDING_DIFF_CONTEXT is specgen's --diff-context: changed (whole changed
 # subclauses), items (unchanged runs of items elided as [...]), or all.
 #
-# A baseline revision is not a file make can date, so the target always runs.
+# The draft is not a file make can date, so the target always runs.
 
-WORDING_BASELINE ?= p3574-baseline-draft
 WORDING_DIFF_CONTEXT ?= changed
 WORDING_DIFF_DIR := $(WORDING_DIR)/diff
 WORDING_DIFF_STAGE := $(BUILD_DIR)/wording-diff-stage
 
 .PHONY: wording-diff
 wording-diff: ## Regenerate papers/P3574/wording/diff/, the wording marked against the working draft
+	@$(wording_draft_present) || { echo "error: the draft's source is not at $(WORDING_DRAFT_SOURCE); set WORDING_DRAFT_SOURCE" >&2; exit 1; }
+	@$(wording_draft_revision_check)
 	@rm -rf $(WORDING_DIFF_STAGE)
 	@mkdir -p $(WORDING_DIFF_STAGE) $(WORDING_DIFF_DIR)/fragments
 	@$(call specgen_wording,$(WORDING_DIFF_STAGE), \
-	    --baseline-rev $(WORDING_BASELINE) --diff-context $(WORDING_DIFF_CONTEXT))
+	    --baseline-draft $(WORDING_DRAFT_SOURCE) --diff-context $(WORDING_DIFF_CONTEXT))
 	@for clause in $(WORDING_CLAUSES); do \
 	    cp $(WORDING_DIFF_STAGE)/$$clause.tex $(WORDING_DIFF_DIR)/fragments/$$clause.tex; \
 	done

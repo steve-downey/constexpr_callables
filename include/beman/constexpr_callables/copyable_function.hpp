@@ -4,7 +4,9 @@
 #define INCLUDED_BEMAN_CONSTEXPR_CALLABLES_COPYABLE_FUNCTION
 
 // The `//!` docblocks in this header are the source of the [func.wrap.copy]
-// wording; papers/P3574/wording/ is generated from them by specgen. All twelve
+// wording; papers/P3574/wording/ is generated from them by specgen. Where one
+// says `\asdraft` its wording is the working draft's, which specgen reads from
+// the draft's LaTeX (papers/P3574/wording/README.md). All twelve
 // partial specializations the wording describes are this one partial
 // specialization: the parts that vary with cv, ref, and noex (the call
 // operator and is-callable-from) come from detail::call_base<..., Sig>, which
@@ -27,31 +29,11 @@ class copyable_function; // not defined
 
 // \rSec4[func.wrap.copy.general]{General}
 
-//! The header provides partial specializations of `copyable_function`
-//! for each combination of the possible replacements
-//! of the placeholders \cv{}, \placeholder{ref}, and \placeholder{noex} where
-//! \item \cv{} is either const or empty,
-//! \item \placeholder{ref} is either `&`, `&&`, or empty, and
-//! \item \placeholder{noex} is either `true` or `false`.
-//!
-//!
-//! For each of the possible combinations of the placeholders mentioned above,
-//! there is a placeholder \placeholder{inv-quals} defined as follows:
-//! \item If \placeholder{ref} is empty, let \placeholder{inv-quals} be \cv{}`&`,
-//! \item otherwise, let \placeholder{inv-quals} be \cv{} \placeholder{ref}.
+//! \asdraft
 
 // \rSec4[func.wrap.copy.class]{Class template \tcode{copyable_function}}
 
-//! The `copyable_function` class template provides polymorphic wrappers
-//! that generalize the notion of a callable object\iref{func.def}.
-//! These wrappers can store, copy, move, and call arbitrary callable objects,
-//! given a call signature.
-//! \recommended Implementations should avoid the use of dynamically allocated
-//! memory for a small contained value.
-//! \note
-//! Such small-object optimization can only be applied to a type `T`
-//! for which `is_nothrow_move_constructible_v<T>` is `true`.
-//! \endnote
+//! \asdraft
 //! \verbatim-synopsis
 //! template<class R, class... ArgTypes>
 //! class copyable_function<R(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@)> {
@@ -113,16 +95,12 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
     static constexpr bool is_callable_from = base::template is_callable_from<VT>;
 
   public:
-    //! \ensures `*this` has no target object.
+    //! \asdraft
     constexpr copyable_function() noexcept {}
     //! \also
     constexpr copyable_function(std::nullptr_t) noexcept {}
 
-    //! \ensures `*this` has no target object if `f` had no target object.
-    //! Otherwise, the target object of `*this`
-    //! is a copy of the target object of `f`.
-    //! \throws Any exception thrown by the initialization of the target object.
-    //! May throw `bad_alloc`.
+    //! \asdraft
     constexpr copyable_function(const copyable_function& f) {
         if (f.has_target()) {
             f.manager_(detail::manage_op::copy, storage_, const_cast<detail::callable_storage*>(&f.storage_));
@@ -131,34 +109,11 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
         }
     }
 
-    //! \ensures The target object of `*this` is
-    //! the target object `f` had before construction, and
-    //! `f` is in a valid state with an unspecified value.
+    //! \asdraft
     constexpr copyable_function(copyable_function&& f) noexcept { take(f); }
 
-    //! Let `VT` be `decay_t<F>`.
-    //! \constraints
-    //! \covers !detail::is_in_place_type<remove_cvref_t<F>>
-    //! \item `remove_cvref_t<F>` is not the same type as `copyable_function`, and
-    //! \item `remove_cvref_t<F>` is not a specialization of `in_place_type_t`, and
-    //! \item `is_callable_from<VT>` is `true`.
-    //! \mandates
-    //! \item `is_constructible_v<VT, F>` is `true`, and
-    //! \item `is_copy_constructible_v<VT>` is `true`.
-    //! \expects `VT` meets the \oldconcept{Destructible}
-    //! and \oldconcept{CopyConstructible} requirements.
-    //! \ensures `*this` has no target object if any of the following hold:
-    //! \item `f` is a null function pointer value, or
-    //! \item `f` is a null member pointer value, or
-    //! \item `remove_cvref_t<F>` is a specialization of
-    //! the `copyable_function` class template,
-    //! and `f` has no target object.
-    //!
-    //! Otherwise, `*this` has a target object of type `VT`
-    //! direct-non-list-initialized with `std::forward<F>(f)`.
-    //! \throws Any exception thrown by the initialization of the target object.
-    //! May throw `bad_alloc` unless `VT` is
-    //! a function pointer or a specialization of `reference_wrapper`.
+    //! \asdraft
+    //! \covers constraints !detail::is_in_place_type<remove_cvref_t<F>>
     template <class F>
         requires(!std::is_same_v<std::remove_cvref_t<F>, copyable_function>) &&
                 (!detail::is_in_place_type<std::remove_cvref_t<F>>) && (is_callable_from<std::decay_t<F>>)
@@ -176,20 +131,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
         emplace<VT>(std::forward<F>(f));
     }
 
-    //! Let `VT` be `decay_t<T>`.
-    //! \constraints
-    //! \item `is_constructible_v<VT, Args...>` is `true`, and
-    //! \item `is_callable_from<VT>` is `true`.
-    //! \mandates
-    //! \item `VT` is the same type as `T`, and
-    //! \item `is_copy_constructible_v<VT>` is `true`.
-    //! \expects `VT` meets the \oldconcept{Destructible}
-    //! and \oldconcept{CopyConstructible} requirements.
-    //! \ensures `*this` has a target object of type `VT`
-    //! direct-non-list-initialized with `std::forward<Args>(args)...`.
-    //! \throws Any exception thrown by the initialization of the target object.
-    //! May throw `bad_alloc` unless `VT` is
-    //! a pointer or a specialization of `reference_wrapper`.
+    //! \asdraft
     template <class T, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, Args...> && (is_callable_from<std::decay_t<T>>)
     constexpr explicit copyable_function(std::in_place_type_t<T>, Args&&... args) {
@@ -199,22 +141,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
         emplace<VT>(std::forward<Args>(args)...);
     }
 
-    //! Let `VT` be `decay_t<T>`.
-    //! \constraints
-    //! \item `is_constructible_v<VT, initializer_list<U>&, Args...>` is
-    //! `true`, and
-    //! \item `is_callable_from<VT>` is `true`.
-    //! \mandates
-    //! \item `VT` is the same type as `T`, and
-    //! \item `is_copy_constructible_v<VT>` is `true`.
-    //! \expects `VT` meets the \oldconcept{Destructible}
-    //! and \oldconcept{CopyConstructible} requirements.
-    //! \ensures `*this` has a target object of type `VT`
-    //! direct-non-list-initialized with
-    //! `ilist, std::forward<Args>(args)...`.
-    //! \throws Any exception thrown by the initialization of the target object.
-    //! May throw `bad_alloc` unless `VT` is
-    //! a pointer or a specialization of `reference_wrapper`.
+    //! \asdraft
     template <class T, class U, class... Args>
         requires std::is_constructible_v<std::decay_t<T>, std::initializer_list<U>&, Args...> &&
                  (is_callable_from<std::decay_t<T>>)
@@ -225,46 +152,42 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
         emplace<VT>(ilist, std::forward<Args>(args)...);
     }
 
-    //! \effects Equivalent to: `copyable_function(f).swap(*this);`
-    //! \returns `*this`.
+    //! \asdraft
     constexpr copyable_function& operator=(const copyable_function& f) {
         copyable_function(f).swap(*this);
         return *this;
     }
 
-    //! \effects Equivalent to: `copyable_function(std::move(f)).swap(*this);`
-    //! \returns `*this`.
+    //! \asdraft
     constexpr copyable_function& operator=(copyable_function&& f) {
         copyable_function(std::move(f)).swap(*this);
         return *this;
     }
 
-    //! \effects Destroys the target object of `*this`, if any.
-    //! \returns `*this`.
+    //! \asdraft
     constexpr copyable_function& operator=(std::nullptr_t) noexcept {
         reset();
         return *this;
     }
 
-    //! \effects Equivalent to: `copyable_function(std::forward<F>(f)).swap(*this);`
-    //! \returns `*this`.
+    //! \asdraft
     template <class F>
     constexpr copyable_function& operator=(F&& f) {
         copyable_function(std::forward<F>(f)).swap(*this);
         return *this;
     }
 
-    //! \effects Destroys the target object of `*this`, if any.
+    //! \asdraft
     constexpr ~copyable_function() { reset(); }
 
     // \ref{func.wrap.copy.inv}, invocation
 
-    //! \returns `true` if `*this` has a target object, otherwise `false`.
+    //! \asdraft
     constexpr explicit operator bool() const noexcept { return has_target(); }
 
     // \ref{func.wrap.copy.util}, utility
 
-    //! \effects Exchanges the target objects of `*this` and `other`.
+    //! \asdraft
     constexpr void swap(copyable_function& other) noexcept {
         if (this == &other)
             return;
@@ -273,10 +196,10 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
         take(tmp);
     }
 
-    //! \effects Equivalent to `f1.swap(f2)`.
+    //! \asdraft
     friend constexpr void swap(copyable_function& f1, copyable_function& f2) noexcept { f1.swap(f2); }
 
-    //! \returns `true` if `f` has no target object, otherwise `false`.
+    //! \asdraft
     friend constexpr bool operator==(const copyable_function& f, std::nullptr_t) noexcept { return !f; }
 
   private:
@@ -343,13 +266,7 @@ class copyable_function<Sig> : public detail::call_base<copyable_function<Sig>, 
 // operator() is declared by detail::call_base, with the cv, ref, and noex of
 // the signature, so its item is authored here.
 
-//! \expects `*this` has a target object.
-//! \effects Equivalent to:
-//! \codeblock
-//! return @\placeholder{INVOKE}@<R>(static_cast<F @\placeholder{inv-quals}@>(f), std::forward<ArgTypes>(args)...);
-//! \endcodeblock
-//! where `f` is an lvalue designating the target object of `*this` and
-//! `F` is the type of `f`.
+//! \asdraft
 //! \verbatim-itemdecl
 //! constexpr R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 

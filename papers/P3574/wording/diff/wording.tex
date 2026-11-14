@@ -41,33 +41,33 @@ namespace std {
     using result_type = R;
 
     // \ref{func.wrap.move.ctor}, constructors, assignments, and destructor
-    @\added{constexpr }@move_only_function() noexcept;
-    @\added{constexpr }@move_only_function(nullptr_t) noexcept;
-    @\added{constexpr }@move_only_function(move_only_function&&) noexcept;
-    template<class F> @\added{constexpr }@move_only_function(F&&);
+    @\added{constexpr}@ move_only_function() noexcept;
+    @\added{constexpr}@ move_only_function(nullptr_t) noexcept;
+    @\added{constexpr}@ move_only_function(move_only_function&&) noexcept;
+    template<class F> @\added{constexpr}@ move_only_function(F&&);
     template<class T, class... Args>
-      @\added{constexpr }@explicit move_only_function(in_place_type_t<T>, Args&&...);
+      @\added{constexpr}@ explicit move_only_function(in_place_type_t<T>, Args&&...);
     template<class T, class U, class... Args>
-      @\added{constexpr }@explicit move_only_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
+      @\added{constexpr}@ explicit move_only_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
 
-    @\added{constexpr }@move_only_function& operator=(move_only_function&&);
-    @\added{constexpr }@move_only_function& operator=(nullptr_t) noexcept;
-    template<class F> @\added{constexpr }@move_only_function& operator=(F&&);
+    @\added{constexpr}@ move_only_function& operator=(move_only_function&&);
+    @\added{constexpr}@ move_only_function& operator=(nullptr_t) noexcept;
+    template<class F> @\added{constexpr}@ move_only_function& operator=(F&&);
 
-    @\added{constexpr }@~move_only_function();
+    @\added{constexpr}@ ~move_only_function();
 
     // \ref{func.wrap.move.inv}, invocation
-    @\added{constexpr }@explicit operator bool() const noexcept;
-    @\added{constexpr }@R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+    @\added{constexpr}@ explicit operator bool() const noexcept;
+    @\added{constexpr}@ R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 
     // \ref{func.wrap.move.util}, utility
-    @\added{constexpr }@void swap(move_only_function&) noexcept;
-    friend @\added{constexpr }@void swap(move_only_function&, move_only_function&) noexcept;
-    friend @\added{constexpr }@bool operator==(const move_only_function&, nullptr_t) noexcept;
+    @\added{constexpr}@ void swap(move_only_function&) noexcept;
+    friend @\added{constexpr}@ void swap(move_only_function&, move_only_function&) noexcept;
+    friend @\added{constexpr}@ bool operator==(const move_only_function&, nullptr_t) noexcept;
 
   private:
     template<class VT>
-      static constexpr bool @\exposid{is-callable-from}@ = @\seebelow@;       // \expos
+      static constexpr bool @\exposidnc{is-callable-from}@ = @\seebelow@;       // \expos
   };
 }
 \end{codeblock}
@@ -105,8 +105,8 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@move_only_function() noexcept;
-@\added{constexpr }@move_only_function(nullptr_t) noexcept;
+@\added{constexpr}@ move_only_function() noexcept;
+@\added{constexpr}@ move_only_function(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -117,7 +117,7 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@move_only_function(move_only_function&& f) noexcept;
+@\added{constexpr}@ move_only_function(move_only_function&& f) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -129,7 +129,7 @@ The target object of \tcode{*this} is the target object \tcode{f} had before con
 \indexlibraryctor{move_only_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@move_only_function(F&& f);
+  @\added{constexpr}@ move_only_function(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -170,7 +170,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{move_only_function}%
 \begin{itemdecl}
 template<class T, class... Args>
-  @\added{constexpr }@explicit move_only_function(in_place_type_t<T>, Args&&... args);
+  @\added{constexpr}@ explicit move_only_function(in_place_type_t<T>, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -204,7 +204,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{move_only_function}%
 \begin{itemdecl}
 template<class T, class U, class... Args>
-  @\added{constexpr }@explicit move_only_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
+  @\added{constexpr}@ explicit move_only_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -237,7 +237,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 
 \indexlibrarymember{operator=}{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@move_only_function& operator=(move_only_function&& f);
+@\added{constexpr}@ move_only_function& operator=(move_only_function&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -252,7 +252,7 @@ Equivalent to: \tcode{move_only_function(std::move(f)).swap(*this);}
 
 \indexlibrarymember{operator=}{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@move_only_function& operator=(nullptr_t) noexcept;
+@\added{constexpr}@ move_only_function& operator=(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -268,7 +268,7 @@ Destroys the target object of \tcode{*this}, if any.
 \indexlibrarymember{operator=}{move_only_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@move_only_function& operator=(F&& f);
+  @\added{constexpr}@ move_only_function& operator=(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -283,7 +283,7 @@ Equivalent to: \tcode{move_only_function(std::forward<F>(f)).swap(*this);}
 
 \indexlibrarydtor{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@~move_only_function();
+@\added{constexpr}@ ~move_only_function();
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -296,7 +296,7 @@ Destroys the target object of \tcode{*this}, if any.
 
 \indexlibrarymember{operator bool}{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@explicit operator bool() const noexcept;
+@\added{constexpr}@ explicit operator bool() const noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -306,7 +306,7 @@ Destroys the target object of \tcode{*this}, if any.
 \end{itemdescr}
 
 \begin{itemdecl}
-@\added{constexpr }@R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+@\added{constexpr}@ R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -327,7 +327,7 @@ where \tcode{f} is an lvalue designating the target object of \tcode{*this} and 
 
 \indexlibrarymember{swap}{move_only_function}%
 \begin{itemdecl}
-@\added{constexpr }@void swap(move_only_function& other) noexcept;
+@\added{constexpr}@ void swap(move_only_function& other) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -338,7 +338,7 @@ Exchanges the target objects of \tcode{*this} and \tcode{other}.
 
 \indexlibraryglobal{swap}%
 \begin{itemdecl}
-friend @\added{constexpr }@void swap(move_only_function& f1, move_only_function& f2) noexcept;
+friend @\added{constexpr}@ void swap(move_only_function& f1, move_only_function& f2) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -349,7 +349,7 @@ Equivalent to \tcode{f1.swap(f2)}.
 
 \indexlibraryglobal{operator==}%
 \begin{itemdecl}
-friend @\added{constexpr }@bool operator==(const move_only_function& f, nullptr_t) noexcept;
+friend @\added{constexpr}@ bool operator==(const move_only_function& f, nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -387,35 +387,35 @@ namespace std {
     using result_type = R;
 
     // \ref{func.wrap.copy.ctor}, constructors, assignments, and destructor
-    @\added{constexpr }@copyable_function() noexcept;
-    @\added{constexpr }@copyable_function(nullptr_t) noexcept;
-    @\added{constexpr }@copyable_function(const copyable_function&);
-    @\added{constexpr }@copyable_function(copyable_function&&) noexcept;
-    template<class F> @\added{constexpr }@copyable_function(F&&);
+    @\added{constexpr}@ copyable_function() noexcept;
+    @\added{constexpr}@ copyable_function(nullptr_t) noexcept;
+    @\added{constexpr}@ copyable_function(const copyable_function&);
+    @\added{constexpr}@ copyable_function(copyable_function&&) noexcept;
+    template<class F> @\added{constexpr}@ copyable_function(F&&);
     template<class T, class... Args>
-      @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, Args&&...);
+      @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, Args&&...);
     template<class T, class U, class... Args>
-      @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
+      @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
 
-    @\added{constexpr }@copyable_function& operator=(const copyable_function&);
-    @\added{constexpr }@copyable_function& operator=(copyable_function&&);
-    @\added{constexpr }@copyable_function& operator=(nullptr_t) noexcept;
-    template<class F> @\added{constexpr }@copyable_function& operator=(F&&);
+    @\added{constexpr}@ copyable_function& operator=(const copyable_function&);
+    @\added{constexpr}@ copyable_function& operator=(copyable_function&&);
+    @\added{constexpr}@ copyable_function& operator=(nullptr_t) noexcept;
+    template<class F> @\added{constexpr}@ copyable_function& operator=(F&&);
 
-    @\added{constexpr }@~copyable_function();
+    @\added{constexpr}@ ~copyable_function();
 
     // \ref{func.wrap.copy.inv}, invocation
-    @\added{constexpr }@explicit operator bool() const noexcept;
-    @\added{constexpr }@R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+    @\added{constexpr}@ explicit operator bool() const noexcept;
+    @\added{constexpr}@ R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 
     // \ref{func.wrap.copy.util}, utility
-    @\added{constexpr }@void swap(copyable_function&) noexcept;
-    friend @\added{constexpr }@void swap(copyable_function&, copyable_function&) noexcept;
-    friend @\added{constexpr }@bool operator==(const copyable_function&, nullptr_t) noexcept;
+    @\added{constexpr}@ void swap(copyable_function&) noexcept;
+    friend @\added{constexpr}@ void swap(copyable_function&, copyable_function&) noexcept;
+    friend @\added{constexpr}@ bool operator==(const copyable_function&, nullptr_t) noexcept;
 
   private:
     template<class VT>
-      static constexpr bool @\exposid{is-callable-from}@ = @\seebelow@;       // \expos
+      static constexpr bool @\exposidnc{is-callable-from}@ = @\seebelow@;       // \expos
   };
 }
 \end{codeblock}
@@ -453,8 +453,8 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function() noexcept;
-@\added{constexpr }@copyable_function(nullptr_t) noexcept;
+@\added{constexpr}@ copyable_function() noexcept;
+@\added{constexpr}@ copyable_function(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -465,7 +465,7 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function(const copyable_function& f);
+@\added{constexpr}@ copyable_function(const copyable_function& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -480,7 +480,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function(copyable_function&& f) noexcept;
+@\added{constexpr}@ copyable_function(copyable_function&& f) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -492,7 +492,7 @@ The target object of \tcode{*this} is the target object \tcode{f} had before con
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@copyable_function(F&& f);
+  @\added{constexpr}@ copyable_function(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -536,7 +536,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class T, class... Args>
-  @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, Args&&... args);
+  @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -573,7 +573,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class T, class U, class... Args>
-  @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
+  @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -609,7 +609,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(const copyable_function& f);
+@\added{constexpr}@ copyable_function& operator=(const copyable_function& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -624,7 +624,7 @@ Equivalent to: \tcode{copyable_function(f).swap(*this);}
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(copyable_function&& f);
+@\added{constexpr}@ copyable_function& operator=(copyable_function&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -639,7 +639,7 @@ Equivalent to: \tcode{copyable_function(std::move(f)).swap(*this);}
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(nullptr_t) noexcept;
+@\added{constexpr}@ copyable_function& operator=(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -655,7 +655,7 @@ Destroys the target object of \tcode{*this}, if any.
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@copyable_function& operator=(F&& f);
+  @\added{constexpr}@ copyable_function& operator=(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -670,7 +670,7 @@ Equivalent to: \tcode{copyable_function(std::forward<F>(f)).swap(*this);}
 
 \indexlibrarydtor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@~copyable_function();
+@\added{constexpr}@ ~copyable_function();
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -683,7 +683,7 @@ Destroys the target object of \tcode{*this}, if any.
 
 \indexlibrarymember{operator bool}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@explicit operator bool() const noexcept;
+@\added{constexpr}@ explicit operator bool() const noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -693,7 +693,7 @@ Destroys the target object of \tcode{*this}, if any.
 \end{itemdescr}
 
 \begin{itemdecl}
-@\added{constexpr }@R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+@\added{constexpr}@ R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -714,7 +714,7 @@ where \tcode{f} is an lvalue designating the target object of \tcode{*this} and 
 
 \indexlibrarymember{swap}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@void swap(copyable_function& other) noexcept;
+@\added{constexpr}@ void swap(copyable_function& other) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -725,7 +725,7 @@ Exchanges the target objects of \tcode{*this} and \tcode{other}.
 
 \indexlibraryglobal{swap}%
 \begin{itemdecl}
-friend @\added{constexpr }@void swap(copyable_function& f1, copyable_function& f2) noexcept;
+friend @\added{constexpr}@ void swap(copyable_function& f1, copyable_function& f2) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -736,7 +736,7 @@ Equivalent to \tcode{f1.swap(f2)}.
 
 \indexlibraryglobal{operator==}%
 \begin{itemdecl}
-friend @\added{constexpr }@bool operator==(const copyable_function& f, nullptr_t) noexcept;
+friend @\added{constexpr}@ bool operator==(const copyable_function& f, nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -777,13 +777,13 @@ namespace std {
     template<class T> function_ref& operator=(T) = delete;
 
     // \ref{func.wrap.ref.inv}, invocation
-    @\added{constexpr }@R operator()(ArgTypes...) const noexcept(@\placeholder{noex}@);
+    @\added{constexpr}@ R operator()(ArgTypes...) const noexcept(@\placeholder{noex}@);
 
   private:
     template<class... T>
       static constexpr bool @\exposidnc{is-invocable-using}@ = @\seebelownc@;             // \expos
 
-    R (*@\exposidnc{thunk-ptr}@)(@\exposidnc{BoundEntityType}@, ArgTypes&&...) noexcept(@\placeholdernc{noex}@);      // \expos
+    R (*@\exposidnc{thunk-ptr}@)(@\exposidnc{BoundEntityType}@, ArgTypes&&...) noexcept(@\placeholder{noex}@);      // \expos
     @\exposidnc{BoundEntityType}@ @\exposidnc{bound-entity}@;                                       // \expos
   };
 
@@ -798,7 +798,7 @@ namespace std {
 \end{codeblock}
 
 \pnum
-An object of class \tcode{function_ref<R(Args...) \cv{} noexcept(\placeholder{noex})>} stores a pointer to function \exposid{thunk-ptr} and an object \exposid{bound-entity}. The object \exposid{bound-entity} has an unspecified trivially copyable type \exposid{BoundEntityType}, that models \libconcept{copyable} and is capable of storing a pointer to object value or a pointer to function value. The type of \exposid{thunk-ptr} is \tcode{R(*)(\exposidnc{BoundEntityType}, Args\&\&...) noexcept(\placeholder{noex})}.
+An object of class \tcode{function_ref<R(Args...) \cv{} noexcept(\placeholder{noex})>} stores a pointer to function \exposid{thunk-ptr} and an object \exposid{bound-entity}. The object \exposid{bound-entity} has an unspecified trivially copyable type \exposid{BoundEntityType}, that models \libconcept{copyable} and is capable of storing a pointer to object value or a pointer to function value. The type of \exposid{thunk-ptr} is \tcode{R(*)(\exposid{BoundEntityType}, Args\&\&...) noexcept(\placeholder{noex})}.
 
 \pnum
 Each specialization of \tcode{function_ref} is a trivially copyable type\iref{term.trivially.copyable.type} that models \libconcept{copyable}.
@@ -814,7 +814,7 @@ denote \tcode{ArgTypes\&\&...} respectively.
 
 \begin{itemdecl}
 template<class... T>
-  static constexpr bool @\exposid{is-invocable-using}@ = @\seebelow@;
+  static constexpr bool @\exposidnc{is-invocable-using}@ = @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -831,7 +831,7 @@ is_invocable_r_v<R, T..., ArgTypes...>
 
 \begin{itemdecl}
 template<class F>
-  static constexpr bool @\exposid{is-convertible-from-specialization}@ = @\seebelow@;
+  static constexpr bool @\exposidnc{is-convertible-from-specialization}@ = @\seebelow@;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -883,7 +883,7 @@ Let \tcode{T} be \tcode{remove_reference_t<F>}.
 
 \pnum
 \effects
-If \tcode{\exposid{is-convertible-from-specialization}<remove_cv_t<T>>} is \tcode{false}, initializes \exposid{bound-entity} with \tcode{addressof(f)}, and \exposid{thunk-ptr} with the address of a function \tcode{\placeholder{thunk}} such that \tcode{\placeholder{thunk}(\exposid{bound-entity}, \placeholder{call-args}...)} is expression-equivalent\iref{defns.expression.equivalent} to \tcode{invoke_r<R>(static_cast<\cv{} T\&>(f), \placeholder{call-args}...)}. Otherwise, initializes \exposid{bound-entity} with the value of \tcode{f.\exposid{bound-entity}} and \exposid{thunk-ptr} with the value of \tcode{f.\exposid{thunk-ptr}}.
+If \tcode{\exposid{is-convertible-from-specialization}<remove_cv_t<T>>} is \tcode{false}, initializes \exposid{bound-en\-tity} with \tcode{addressof(f)}, and \exposid{thunk-ptr} with the address of a function \tcode{\placeholder{thunk}} such that \tcode{\placeholder{thunk}(\exposid{bound-\brk{}entity}, \placeholder{call-args}...)} is expression-equivalent\iref{defns.expression.equivalent} to \tcode{invoke_r<R>(static_cast<\cv{} T\&>(f), \placeholder{call-args}...)}. Otherwise, initializes \exposid{bound-entity} with the value of \tcode{f.\exposid{bound-entity}} and \exposid{thunk-\brk{}ptr} with the value of \tcode{f.\exposid{thunk-ptr}}.
 
 \pnum
 \remarks
@@ -988,7 +988,7 @@ template<class T> function_ref& operator=(T) = delete;
 \rSec4[func.wrap.ref.inv]{Invocation}
 
 \begin{itemdecl}
-@\added{constexpr }@R operator()(ArgTypes... args) const noexcept(@\placeholder{noex}@);
+@\added{constexpr}@ R operator()(ArgTypes... args) const noexcept(@\placeholder{noex}@);
 \end{itemdecl}
 
 \begin{itemdescr}
