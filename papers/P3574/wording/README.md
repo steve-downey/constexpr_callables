@@ -116,5 +116,7 @@ The target always runs: the draft isn't a file make can date.
   still validates their spans and leakage.
 - specgen reports, as warnings, the draft macros it has no inline kind for
   yet (`\ref`, `\cvqual`, `\exposconcept`, `\newline`, `\opt`) in
-  [func.wrap.ref], and writes them back as they were. `wording.mk` lets exactly
-  those through; anything else it reports fails the run.
+  [func.wrap.ref], and writes them back as they were
+  ([specgen #307](https://github.com/steve-downey/specgen/issues/307)).
+  `wording.mk` lets exactly those through; anything else it reports fails the
+  run.

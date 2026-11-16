@@ -211,13 +211,15 @@ function_ref(std::constant_wrapper<c, F>, T&&)
 // The `//!` blocks below are the source of the [func.wrap.ref] wording;
 // papers/P3574/wording/ is generated from them by specgen. Both partial
 // specializations are defined in detail/function_ref_impl.hpp, outside the
-// document, so the synopsis and every item are authored here, detached, in
-// the draft's order. Beyond the draft, the call operator is constexpr.
+// document, so the synopsis and every item's declaration are authored here,
+// detached, in the draft's order. Where a block says `\asdraft` its wording is
+// the working draft's, which specgen reads from the draft's LaTeX
+// (papers/P3574/wording/README.md). Beyond the draft, the call operator is
+// constexpr.
 
 // clang-format off
-// The wording below must keep its line breaks: clang-format would reflow long
-// lines, start some with a LaTeX macro (which specgen #253 takes for a tag),
-// and split lines of the verbatim synopsis.
+// The wording below must keep its line breaks: clang-format would reflow the
+// long lines of the verbatim synopsis and of the item declarations.
 
 // \rSec3[func.wrap.ref]{Non-owning wrapper}
 
@@ -264,10 +266,6 @@ function_ref(std::constant_wrapper<c, F>, T&&)
 //!   template<auto c, class F, class T>
 //!     function_ref(constant_wrapper<c, F>, T&&) -> function_ref<@\seebelow@>;
 //! }
-
-// No line of the prose below begins with a LaTeX macro: specgen would take it
-// for a tag (specgen #253), so each wraps after the first word of a macro's
-// line instead.
 
 //! \asdraft
 

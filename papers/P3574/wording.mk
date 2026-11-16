@@ -77,12 +77,12 @@ endif
 # run fails on any warning or error, and passes notes through.
 #
 # One class of warning is let through: the draft importer keeps a macro it has
-# no IR kind for as raw LaTeX and says so. [func.wrap.ref] is authored in
-# function_ref.hpp, so the draft's own text for it is only the diff's baseline,
-# where the latex backend writes those macros back as they were. They are
-# \ref, \cvqual, \exposconcept, \newline, and \opt; anything else the importer
-# reports still fails the run. Drop the filter when the importer reads them.
-WORDING_ACCEPTED_IMPORT_WARNINGS := ^specgen: warning: func\.wrap\.ref[a-z.]*: (\\[a-z]+ has no IR kind|a macro in \\tcode is kept as raw LaTeX: \\(cvqual|newline|opt))
+# no IR kind for as raw LaTeX and says so, and the latex backend writes it back
+# as it was, so the wording is still the draft's. In [func.wrap.ref] those are
+# \ref, \cvqual, \exposconcept, \newline, and \opt, each named below; any other
+# macro, and anything else the importer reports, still fails the run. Drop the
+# filter when the importer reads them (specgen #307).
+WORDING_ACCEPTED_IMPORT_WARNINGS := ^specgen: warning: func\.wrap\.ref[a-z.]*: (\\(ref|cvqual|exposconcept) has no IR kind|a macro in \\tcode is kept as raw LaTeX: \\(cvqual|newline|opt))
 
 define specgen_wording
 mkdir -p $(dir $(WORDING_FINDINGS)); \
