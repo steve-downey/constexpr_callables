@@ -13,9 +13,31 @@ make wording-check  # regenerate into .build/ and compare with what's checked in
 ```
 
 `make wording` needs `specgen` on `PATH` (or `make SPECGEN=/path/to/specgen
-wording`) and GNU Make 4.3 or newer: one specgen run writes all three
+wording`), a checkout of [the C++ working draft](https://github.com/cplusplus/draft)
+(below), and GNU Make 4.3 or newer: one specgen run writes all three
 fragments, which the makefile states as a grouped target (`&:`). Without
-specgen the checked-in wording is used as it is, with a warning.
+specgen, or without the draft, the checked-in wording is used as it is, with a
+warning.
+
+## The draft
+
+Most of the wording is the working draft's, unchanged: the headers' `//!`
+docblocks say `\asdraft` where the draft's text for a subclause, a class, or a
+member is the paper's, and specgen reads it from the draft's LaTeX rather than
+having it retyped here. Only what P3574 changes is written in the headers: the
+declarations, with `constexpr`, and the few places the wording is authored
+(below). `make wording` and `make wording-diff` read the draft from
+`WORDING_DRAFT_SOURCE`, the `source` directory of a checkout, `../draft/source`
+unless set:
+
+```sh
+make WORDING_DRAFT_SOURCE=~/src/cplusplus/draft/source wording
+```
+
+specgen records no draft revision. The wording is written against the draft
+commit `WORDING_DRAFT_COMMIT` in `papers/P3574/wording.mk`, and a checkout at
+another one is warned about. Moving the paper to a newer draft is a deliberate
+act: update the checkout and the commit, and the diff shows what moved.
 
 The rules are in `papers/P3574/wording.mk`, which the repository-root
 `Makefile` includes. specgen writes what it read to `papers/.deps/wording.d`,
@@ -59,27 +81,42 @@ make wording-diff                              # whole changed subclauses
 make wording-diff WORDING_DIFF_CONTEXT=items   # unchanged items elided as [...]
 ```
 
-The baseline is the git tag `p3574-baseline-draft`, which specgen checks out
-into a scratch tree for the run, so the tag has to be in the clone (`git fetch
---tags`). It's the branch `p3574-baseline`: these headers with P3574's
-`constexpr` removed. Its generated wording matches the working draft's
-[func.wrap.move], [func.wrap.copy], and [func.wrap.ref] word for word, apart
-from line-breaking hints and `\exposid` versus `\exposidnc`. It isn't meant to
-be merged.
+The baseline is the working draft itself: specgen reads the three clauses from
+the draft's LaTeX, by stable name, and diffs the headers' wording against them
+(`--baseline-draft`). Since the draft's own text is what the headers inherit,
+the diff is exactly what P3574 changes.
 
-The target always runs: a baseline revision isn't a file make can date.
+The old baseline, the branch `p3574-baseline` and the tag
+`p3574-baseline-draft`, was these headers with `constexpr` removed, kept so
+specgen could diff against a revision. Nothing reads it now, and it can be
+deleted.
+
+The target always runs: the draft isn't a file make can date.
 
 ## How the headers carry the wording
 
 - Each owning wrapper is one partial specialization standing for all twelve,
   so its class synopsis is authored with `\verbatim-synopsis` in the draft's
-  placeholder form. Its members' items are extracted from the code, with their
-  descriptions in docblocks. `operator()` is declared by `detail::call_base`,
-  so its item is a detached `\verbatim-itemdecl`.
+  placeholder form, `constexpr` written in. It can't be `\asdraft-synopsis`
+  because `operator()` is declared by `detail::call_base`, not by the class, so
+  there is no declaration of it for specgen to patch the draft's synopsis from.
+  specgen compares the authored synopsis with the class's own declarations under
+  `--validate` and notes the one declaration the class does not make.
+- The general subclauses, the class descriptions, and every member's
+  description are `//! \asdraft`, and take the draft's text. `operator()` is
+  declared by `detail::call_base`, so its item is a detached
+  `\verbatim-itemdecl` with `\asdraft` before it: the declaration, with
+  `constexpr`, is written here, and the description is the draft's.
+  *is-callable-from* is authored, because the draft's index has no entry for an
+  exposition-only variable to pair it by.
 - Both `function_ref` specializations are defined in
   `detail/function_ref_impl.hpp`, outside the document, so its synopsis and
-  every item are authored, detached, at the end of `function_ref.hpp`. specgen
+  every item's declaration are authored, detached, at the end of
+  `function_ref.hpp`, each with `\asdraft` taking the description. specgen
   still validates their spans and leakage.
-- Prose that the draft writes unlabelled (the general subclauses, the class
-  descriptions, *is-callable-from*'s description) is unlabelled prose in the
-  docblocks.
+- specgen reports, as warnings, the draft macros it has no inline kind for
+  yet (`\ref`, `\cvqual`, `\exposconcept`, `\newline`, `\opt`) in
+  [func.wrap.ref], and writes them back as they were
+  ([specgen #307](https://github.com/steve-downey/specgen/issues/307)).
+  `wording.mk` lets exactly those through; anything else it reports fails the
+  run.

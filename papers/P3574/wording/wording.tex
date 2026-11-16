@@ -799,7 +799,7 @@ namespace std {
 \end{codeblock}
 
 \pnum
-An object of class \tcode{function_ref<R(Args...) \cv{} noexcept(\placeholder{noex})>} stores a pointer to function \exposid{thunk-ptr} and an object \exposid{bound-entity}. The object \exposid{bound-entity} has an unspecified trivially copyable type \exposid{BoundEntityType}, that models \libconcept{copyable} and is capable of storing a pointer to object value or a pointer to function value. The type of \exposid{thunk-ptr} is \tcode{R(*)(\exposidnc{BoundEntityType}, Args\&\&...) noexcept(\placeholder{noex})}.
+An object of class \tcode{function_ref<R(Args...) \cv{} noexcept(\placeholder{noex})>} stores a pointer to function \exposid{thunk-ptr} and an object \exposid{bound-entity}. The object \exposid{bound-entity} has an unspecified trivially copyable type \exposid{BoundEntityType}, that models \libconcept{copyable} and is capable of storing a pointer to object value or a pointer to function value. The type of \exposid{thunk-ptr} is \tcode{R(*)(\exposid{BoundEntityType}, Args\&\&...) noexcept(\placeholder{noex})}.
 
 \pnum
 Each specialization of \tcode{function_ref} is a trivially copyable type\iref{term.trivially.copyable.type} that models \libconcept{copyable}.
@@ -884,7 +884,7 @@ Let \tcode{T} be \tcode{remove_reference_t<F>}.
 
 \pnum
 \effects
-If \tcode{\exposid{is-convertible-from-specialization}<remove_cv_t<T>>} is \tcode{false}, initializes \exposid{bound-entity} with \tcode{addressof(f)}, and \exposid{thunk-ptr} with the address of a function \tcode{\placeholder{thunk}} such that \tcode{\placeholder{thunk}(\exposid{bound-entity}, \placeholder{call-args}...)} is expression-equivalent\iref{defns.expression.equivalent} to \tcode{invoke_r<R>(static_cast<\cv{} T\&>(f), \placeholder{call-args}...)}. Otherwise, initializes \exposid{bound-entity} with the value of \tcode{f.\exposid{bound-entity}} and \exposid{thunk-ptr} with the value of \tcode{f.\exposid{thunk-ptr}}.
+If \tcode{\exposid{is-convertible-from-specialization}<remove_cv_t<T>>} is \tcode{false}, initializes \exposid{bound-en\-tity} with \tcode{addressof(f)}, and \exposid{thunk-ptr} with the address of a function \tcode{\placeholder{thunk}} such that \tcode{\placeholder{thunk}(\exposid{bound-\brk{}entity}, \placeholder{call-args}...)} is expression-equivalent\iref{defns.expression.equivalent} to \tcode{invoke_r<R>(static_cast<\cv{} T\&>(f), \placeholder{call-args}...)}. Otherwise, initializes \exposid{bound-entity} with the value of \tcode{f.\exposid{bound-entity}} and \exposid{thunk-\brk{}ptr} with the value of \tcode{f.\exposid{thunk-ptr}}.
 
 \pnum
 \remarks

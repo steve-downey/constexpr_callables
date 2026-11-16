@@ -27,35 +27,35 @@ namespace std {
     using result_type = R;
 
     // \ref{func.wrap.copy.ctor}, constructors, assignments, and destructor
-    @\added{constexpr }@copyable_function() noexcept;
-    @\added{constexpr }@copyable_function(nullptr_t) noexcept;
-    @\added{constexpr }@copyable_function(const copyable_function&);
-    @\added{constexpr }@copyable_function(copyable_function&&) noexcept;
-    template<class F> @\added{constexpr }@copyable_function(F&&);
+    @\added{constexpr}@ copyable_function() noexcept;
+    @\added{constexpr}@ copyable_function(nullptr_t) noexcept;
+    @\added{constexpr}@ copyable_function(const copyable_function&);
+    @\added{constexpr}@ copyable_function(copyable_function&&) noexcept;
+    template<class F> @\added{constexpr}@ copyable_function(F&&);
     template<class T, class... Args>
-      @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, Args&&...);
+      @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, Args&&...);
     template<class T, class U, class... Args>
-      @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
+      @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, initializer_list<U>, Args&&...);
 
-    @\added{constexpr }@copyable_function& operator=(const copyable_function&);
-    @\added{constexpr }@copyable_function& operator=(copyable_function&&);
-    @\added{constexpr }@copyable_function& operator=(nullptr_t) noexcept;
-    template<class F> @\added{constexpr }@copyable_function& operator=(F&&);
+    @\added{constexpr}@ copyable_function& operator=(const copyable_function&);
+    @\added{constexpr}@ copyable_function& operator=(copyable_function&&);
+    @\added{constexpr}@ copyable_function& operator=(nullptr_t) noexcept;
+    template<class F> @\added{constexpr}@ copyable_function& operator=(F&&);
 
-    @\added{constexpr }@~copyable_function();
+    @\added{constexpr}@ ~copyable_function();
 
     // \ref{func.wrap.copy.inv}, invocation
-    @\added{constexpr }@explicit operator bool() const noexcept;
-    @\added{constexpr }@R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+    @\added{constexpr}@ explicit operator bool() const noexcept;
+    @\added{constexpr}@ R operator()(ArgTypes...) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 
     // \ref{func.wrap.copy.util}, utility
-    @\added{constexpr }@void swap(copyable_function&) noexcept;
-    friend @\added{constexpr }@void swap(copyable_function&, copyable_function&) noexcept;
-    friend @\added{constexpr }@bool operator==(const copyable_function&, nullptr_t) noexcept;
+    @\added{constexpr}@ void swap(copyable_function&) noexcept;
+    friend @\added{constexpr}@ void swap(copyable_function&, copyable_function&) noexcept;
+    friend @\added{constexpr}@ bool operator==(const copyable_function&, nullptr_t) noexcept;
 
   private:
     template<class VT>
-      static constexpr bool @\exposid{is-callable-from}@ = @\seebelow@;       // \expos
+      static constexpr bool @\exposidnc{is-callable-from}@ = @\seebelow@;       // \expos
   };
 }
 \end{codeblock}
@@ -93,8 +93,8 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function() noexcept;
-@\added{constexpr }@copyable_function(nullptr_t) noexcept;
+@\added{constexpr}@ copyable_function() noexcept;
+@\added{constexpr}@ copyable_function(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -105,7 +105,7 @@ is_invocable_r_v<R, VT @\placeholder{inv-quals}@, ArgTypes...>
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function(const copyable_function& f);
+@\added{constexpr}@ copyable_function(const copyable_function& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -120,7 +120,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function(copyable_function&& f) noexcept;
+@\added{constexpr}@ copyable_function(copyable_function&& f) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -132,7 +132,7 @@ The target object of \tcode{*this} is the target object \tcode{f} had before con
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@copyable_function(F&& f);
+  @\added{constexpr}@ copyable_function(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -176,7 +176,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class T, class... Args>
-  @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, Args&&... args);
+  @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -213,7 +213,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 \indexlibraryctor{copyable_function}%
 \begin{itemdecl}
 template<class T, class U, class... Args>
-  @\added{constexpr }@explicit copyable_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
+  @\added{constexpr}@ explicit copyable_function(in_place_type_t<T>, initializer_list<U> ilist, Args&&... args);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -249,7 +249,7 @@ Any exception thrown by the initialization of the target object. May throw \tcod
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(const copyable_function& f);
+@\added{constexpr}@ copyable_function& operator=(const copyable_function& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -264,7 +264,7 @@ Equivalent to: \tcode{copyable_function(f).swap(*this);}
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(copyable_function&& f);
+@\added{constexpr}@ copyable_function& operator=(copyable_function&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -279,7 +279,7 @@ Equivalent to: \tcode{copyable_function(std::move(f)).swap(*this);}
 
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@copyable_function& operator=(nullptr_t) noexcept;
+@\added{constexpr}@ copyable_function& operator=(nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -295,7 +295,7 @@ Destroys the target object of \tcode{*this}, if any.
 \indexlibrarymember{operator=}{copyable_function}%
 \begin{itemdecl}
 template<class F>
-  @\added{constexpr }@copyable_function& operator=(F&& f);
+  @\added{constexpr}@ copyable_function& operator=(F&& f);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -310,7 +310,7 @@ Equivalent to: \tcode{copyable_function(std::forward<F>(f)).swap(*this);}
 
 \indexlibrarydtor{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@~copyable_function();
+@\added{constexpr}@ ~copyable_function();
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -323,7 +323,7 @@ Destroys the target object of \tcode{*this}, if any.
 
 \indexlibrarymember{operator bool}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@explicit operator bool() const noexcept;
+@\added{constexpr}@ explicit operator bool() const noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -333,7 +333,7 @@ Destroys the target object of \tcode{*this}, if any.
 \end{itemdescr}
 
 \begin{itemdecl}
-@\added{constexpr }@R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
+@\added{constexpr}@ R operator()(ArgTypes... args) @\cv{}@ @\placeholder{ref}@ noexcept(@\placeholder{noex}@);
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -354,7 +354,7 @@ where \tcode{f} is an lvalue designating the target object of \tcode{*this} and 
 
 \indexlibrarymember{swap}{copyable_function}%
 \begin{itemdecl}
-@\added{constexpr }@void swap(copyable_function& other) noexcept;
+@\added{constexpr}@ void swap(copyable_function& other) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -365,7 +365,7 @@ Exchanges the target objects of \tcode{*this} and \tcode{other}.
 
 \indexlibraryglobal{swap}%
 \begin{itemdecl}
-friend @\added{constexpr }@void swap(copyable_function& f1, copyable_function& f2) noexcept;
+friend @\added{constexpr}@ void swap(copyable_function& f1, copyable_function& f2) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
@@ -376,7 +376,7 @@ Equivalent to \tcode{f1.swap(f2)}.
 
 \indexlibraryglobal{operator==}%
 \begin{itemdecl}
-friend @\added{constexpr }@bool operator==(const copyable_function& f, nullptr_t) noexcept;
+friend @\added{constexpr}@ bool operator==(const copyable_function& f, nullptr_t) noexcept;
 \end{itemdecl}
 
 \begin{itemdescr}
