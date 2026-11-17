@@ -3,26 +3,24 @@ constexpr-function-wording.pdf :\
     ./abstract.bst\
     ./mybiblio.bib\
     ./wg21.bib\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono8-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmonolt10-bold.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc\
-    /home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmonolt10-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc\
     /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-Bold.otf\
     /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-BoldIt.otf\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-RegularIt.otf\
     /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Bold.otf\
     /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Regular.otf\
     /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-RegularIt.otf\
@@ -61,6 +59,8 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/generic/pdfescape/pdfescape.sty\
     /usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.lua\
     /usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty\
+    /usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex\
+    /usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex\
     /usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty\
     /usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty\
     /usr/share/texlive/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty\
@@ -77,14 +77,11 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty\
     /usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty\
     /usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty\
-    /usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty\
-    /usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty\
     /usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty\
     /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty\
     /usr/share/texlive/texmf-dist/tex/latex/base/ltluatex.lua\
     /usr/share/texlive/texmf-dist/tex/latex/base/shortvrb.sty\
     /usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty\
-    /usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd\
     /usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty\
     /usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty\
     /usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty\
@@ -97,7 +94,6 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg\
     /usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.lua\
     /usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty\
-    /usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty\
     /usr/share/texlive/texmf-dist/tex/latex/fvextra/fvextra.sty\
     /usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg\
     /usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg\
@@ -114,7 +110,6 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty\
     /usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def\
     /usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def\
-    /usr/share/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty\
     /usr/share/texlive/texmf-dist/tex/latex/imakeidx/imakeidx.sty\
     /usr/share/texlive/texmf-dist/tex/latex/isodate/english.idf\
     /usr/share/texlive/texmf-dist/tex/latex/isodate/isodate.sty\
@@ -127,6 +122,7 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.lua\
     /usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty\
     /usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty\
+    /usr/share/texlive/texmf-dist/tex/latex/latex2pydata/latex2pydata.sty\
     /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg\
     /usr/share/texlive/texmf-dist/tex/latex/lineno/lineno.sty\
     /usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg\
@@ -145,13 +141,14 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg\
     /usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg\
     /usr/share/texlive/texmf-dist/tex/latex/minted/minted.sty\
+    /usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty\
+    /usr/share/texlive/texmf-dist/tex/latex/pgfopts/pgfopts.sty\
     /usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty\
     /usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty\
     /usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty\
     /usr/share/texlive/texmf-dist/tex/latex/stackengine/stackengine.sty\
     /usr/share/texlive/texmf-dist/tex/latex/substr/substr.sty\
     /usr/share/texlive/texmf-dist/tex/latex/tex-ini-files/lualatexquotejobname.lua\
-    /usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty\
     /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty\
     /usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty\
     /usr/share/texlive/texmf-dist/tex/latex/tools/dcolumn.sty\
@@ -170,6 +167,7 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-case.lua\
     /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-normalize.lua\
     /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-parse.lua\
+    /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-stage-tables.lua\
     /usr/share/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua\
     /usr/share/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic.lua\
     /usr/share/texlive/texmf-dist/tex/luatex/lualibs/lualibs-compat.lua\
@@ -212,7 +210,6 @@ constexpr-function-wording.pdf :\
     /usr/share/texlive/texmf-dist/tex/luatex/luaotfload/luaotfload.lua\
     /usr/share/texmf/fonts/opentype/public/lm/lmmono10-italic.otf\
     /usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf\
-    /usr/share/texmf/fonts/opentype/public/lm/lmmono8-regular.otf\
     /usr/share/texmf/fonts/opentype/public/lm/lmmono9-regular.otf\
     /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf\
     /usr/share/texmf/fonts/tfm/public/lm/ec-lmr10.tfm\
@@ -237,7 +234,6 @@ constexpr-function-wording.pdf :\
     /usr/share/texmf/fonts/tfm/public/lm/rm-lmr9.tfm\
     /usr/share/texmf/fonts/tfm/public/lm/rm-lmri10.tfm\
     /usr/share/texmf/fonts/tfm/public/lm/rm-lmri7.tfm\
-    /usr/share/texmf/fonts/tfm/public/lm/rm-lmri9.tfm\
     /usr/share/texmf/fonts/type1/public/lm/lmri7.pfb\
     /usr/share/texmf/tex/latex/lm/lmodern.sty\
     /usr/share/texmf/tex/latex/lm/omllmm.fd\
@@ -248,18 +244,18 @@ constexpr-function-wording.pdf :\
     /var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map\
     /var/lib/texmf/tex/generic/config/language.dat\
     /var/lib/texmf/web2c/luahbtex/lualatex.fmt\
-    _minted-constexpr-function-wording/439EFDF60C580EA922FFCD832F74C8D990569803F9228AD5F13E9DC007CD6F22.pygtex\
-    _minted-constexpr-function-wording/9161106E00042DF641F404692A15E36790569803F9228AD5F13E9DC007CD6F22.pygtex\
-    _minted-constexpr-function-wording/default.pygstyle\
+    _minted/56AD2A6AD34758854B889BDD165B9CCF.highlight.minted\
+    _minted/D67F3AD916B720772EEA02A1858192D8.highlight.minted\
+    _minted/default.style.minted\
     common.tex\
     constexpr-function-wording.tex\
-    new-function.tex\
     stdtex/config.tex\
     stdtex/layout.tex\
     stdtex/macros.tex\
     stdtex/paper_macros.tex\
     stdtex/styles.tex\
-    stdtex/tables.tex
+    stdtex/tables.tex\
+    wording/diff/wording.tex
 #===End dependents for constexpr-function-wording.tex:
 
 #===Phony rules for constexpr-function-wording.tex:
@@ -270,45 +266,41 @@ constexpr-function-wording.pdf :\
 
 ./wg21.bib :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono8-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmonolt10-bold.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmmonolt10-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc :
 
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc :
-
-/home/sdowney/.texlive2024/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc :
 
 /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-Bold.otf :
 
 /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-BoldIt.otf :
-
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-RegularIt.otf :
 
 /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Bold.otf :
 
@@ -386,6 +378,10 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty :
 
+/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex :
+
+/usr/share/texlive/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfiltered.code.tex :
+
 /usr/share/texlive/texmf-dist/tex/generic/stringenc/stringenc.sty :
 
 /usr/share/texlive/texmf-dist/tex/generic/ulem/ulem.sty :
@@ -418,10 +414,6 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty :
 
-/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-ltx.sty :
-
-/usr/share/texlive/texmf-dist/tex/latex/base/atveryend-ltx.sty :
-
 /usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty :
@@ -431,8 +423,6 @@ constexpr-function-wording.pdf :\
 /usr/share/texlive/texmf-dist/tex/latex/base/shortvrb.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty :
-
-/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd :
 
 /usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty :
 
@@ -457,8 +447,6 @@ constexpr-function-wording.pdf :\
 /usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.lua :
 
 /usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.sty :
-
-/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/fvextra/fvextra.sty :
 
@@ -492,8 +480,6 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def :
 
-/usr/share/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty :
-
 /usr/share/texlive/texmf-dist/tex/latex/imakeidx/imakeidx.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/isodate/english.idf :
@@ -517,6 +503,8 @@ constexpr-function-wording.pdf :\
 /usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty :
+
+/usr/share/texlive/texmf-dist/tex/latex/latex2pydata/latex2pydata.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg :
 
@@ -554,6 +542,10 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texlive/texmf-dist/tex/latex/minted/minted.sty :
 
+/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty :
+
+/usr/share/texlive/texmf-dist/tex/latex/pgfopts/pgfopts.sty :
+
 /usr/share/texlive/texmf-dist/tex/latex/refcount/refcount.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty :
@@ -565,8 +557,6 @@ constexpr-function-wording.pdf :\
 /usr/share/texlive/texmf-dist/tex/latex/substr/substr.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/tex-ini-files/lualatexquotejobname.lua :
-
-/usr/share/texlive/texmf-dist/tex/latex/textcase/textcase.sty :
 
 /usr/share/texlive/texmf-dist/tex/latex/tools/array.sty :
 
@@ -603,6 +593,8 @@ constexpr-function-wording.pdf :\
 /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-normalize.lua :
 
 /usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-parse.lua :
+
+/usr/share/texlive/texmf-dist/tex/luatex/lua-uni-algos/lua-uni-stage-tables.lua :
 
 /usr/share/texlive/texmf-dist/tex/luatex/lualibs/lualibs-basic-merged.lua :
 
@@ -688,8 +680,6 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf :
 
-/usr/share/texmf/fonts/opentype/public/lm/lmmono8-regular.otf :
-
 /usr/share/texmf/fonts/opentype/public/lm/lmmono9-regular.otf :
 
 /usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf :
@@ -738,8 +728,6 @@ constexpr-function-wording.pdf :\
 
 /usr/share/texmf/fonts/tfm/public/lm/rm-lmri7.tfm :
 
-/usr/share/texmf/fonts/tfm/public/lm/rm-lmri9.tfm :
-
 /usr/share/texmf/fonts/type1/public/lm/lmri7.pfb :
 
 /usr/share/texmf/tex/latex/lm/lmodern.sty :
@@ -760,17 +748,15 @@ constexpr-function-wording.pdf :\
 
 /var/lib/texmf/web2c/luahbtex/lualatex.fmt :
 
-_minted-constexpr-function-wording/439EFDF60C580EA922FFCD832F74C8D990569803F9228AD5F13E9DC007CD6F22.pygtex :
+_minted/56AD2A6AD34758854B889BDD165B9CCF.highlight.minted :
 
-_minted-constexpr-function-wording/9161106E00042DF641F404692A15E36790569803F9228AD5F13E9DC007CD6F22.pygtex :
+_minted/D67F3AD916B720772EEA02A1858192D8.highlight.minted :
 
-_minted-constexpr-function-wording/default.pygstyle :
+_minted/default.style.minted :
 
 common.tex :
 
 constexpr-function-wording.tex :
-
-new-function.tex :
 
 stdtex/config.tex :
 
@@ -783,5 +769,7 @@ stdtex/paper_macros.tex :
 stdtex/styles.tex :
 
 stdtex/tables.tex :
+
+wording/diff/wording.tex :
 
 #===End phony rules for constexpr-function-wording.tex:

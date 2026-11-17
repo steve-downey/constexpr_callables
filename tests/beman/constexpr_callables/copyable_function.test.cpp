@@ -453,6 +453,35 @@ TEST(CopyableFunction, ConvertingAssignmentReplacesTarget) {
     EXPECT_EQ(probe(), 20);
 }
 
+// `f = g` for a non-const lvalue g of the same specialization: operator=(F&&)
+// is selected, and copies g through the copy constructor.
+TEST(CopyableFunction, ConvertingAssignmentFromNonConstLvalueCopies) {
+    constexpr auto probe = [] {
+        counts c;
+        bool   ok = false;
+        {
+            copyable_function<int()> f = [] { return 3; };
+            copyable_function<int()> g(std::in_place_type<counted>, &c);
+            bool                     returns_this = &(f = g) == &f;
+            ok                                    = returns_this && f() == 7 && g() == 7;
+        }
+        return ok && c.copies == 1 && c.destroyed == 1 + c.copies + c.moves;
+    };
+    EXPECT_TRUE(constant_eval(probe));
+    EXPECT_TRUE(probe());
+}
+
+TEST(CopyableFunction, ConvertingAssignmentFromEmptyNonConstLvalue) {
+    constexpr auto probe = [] {
+        copyable_function<int()> f = [] { return 3; };
+        copyable_function<int()> g;
+        f = g;
+        return !f && !g;
+    };
+    EXPECT_TRUE(constant_eval(probe));
+    EXPECT_TRUE(probe());
+}
+
 TEST(CopyableFunction, ConvertingAssignmentFromNullFunctionPointer) {
     constexpr auto probe = [] {
         copyable_function<int(int)> f = [](int x) { return x; };
@@ -738,6 +767,11 @@ TEST(CopyableFunction, CopiesHaveIndependentTargets) {
     EXPECT_EQ(probe(), 42);
 }
 
+// Assigning from a non-const lvalue selects operator=(F&&), not the copy
+// assignment operator: with F deduced as copyable_function& its parameter
+// binds without adding const, which makes it the better match. These tests
+// assign from a const lvalue so that it is the copy assignment operator being
+// evaluated; the non-const case is ConvertingAssignmentFromNonConstLvalueCopies.
 TEST(CopyableFunction, CopyAssignmentReplacesTarget) {
     constexpr auto probe = [] {
         counts c;
@@ -745,7 +779,7 @@ TEST(CopyableFunction, CopyAssignmentReplacesTarget) {
         {
             copyable_function<int()> f = [] { return 3; };
             copyable_function<int()> g(std::in_place_type<counted>, &c);
-            bool                     returns_this = &(f = g) == &f;
+            bool                     returns_this = &(f = std::as_const(g)) == &f;
             ok                                    = returns_this && f() == 7 && g() == 7;
         }
         // Every counted object created (one in place, plus copies and moves)
@@ -760,7 +794,7 @@ TEST(CopyableFunction, CopyAssignmentFromEmpty) {
     constexpr auto probe = [] {
         copyable_function<int()> f = [] { return 3; };
         copyable_function<int()> g;
-        f = g;
+        f = std::as_const(g);
         return !f && !g;
     };
     EXPECT_TRUE(constant_eval(probe));

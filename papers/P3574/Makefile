@@ -26,16 +26,10 @@ $(DEPS_DIR):
 	mkdir -p $(DEPS_DIR)
 
 .PHONY: papers
-papers: constexpr-function-wording.pdf base.pdf new.pdf
+papers: constexpr-function-wording.pdf
 
 constexpr-function-wording.pdf : constexpr-function-wording.tex wg21.bib $(DEPS_DIR) | $(VENV)
 	$(SOURCE_VENV) latexmk -f -shell-escape -pdflua -use-make -deps -deps-out=$(DEPS_DIR)/$@.d -MP constexpr-function-wording.tex
-
-base.pdf : base.tex wg21.bib $(DEPS_DIR) | $(VENV)
-	$(SOURCE_VENV) latexmk -f -shell-escape -pdflua -use-make -deps -deps-out=$(DEPS_DIR)/$@.d -MP base.tex
-
-new.pdf : new.tex wg21.bib $(DEPS_DIR) | $(VENV)
-	$(SOURCE_VENV) latexmk -f -shell-escape -pdflua -use-make -deps -deps-out=$(DEPS_DIR)/$@.d -MP new.tex
 
 
 define curl_cmd =

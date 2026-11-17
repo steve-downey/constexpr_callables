@@ -25,7 +25,7 @@
 \end{flushright}
 
 \begin{abstract}
-Add \tcode{constexpr} in the interface of \tcode{copyable_function} and \tcode{move_only_function}.
+Add \tcode{constexpr} in the interface of \tcode{copyable_function}, \tcode{move_only_function}, and \tcode{function_ref}.
 \end{abstract}
 
 \tableofcontents*
@@ -66,13 +66,15 @@ However, no existing compiler and type erased callable work with merely adding \
 
 \chapter{Proposal}
 
-Add \tcode{constexpr} in the interface of \tcode{copyable_function} and \tcode{move_only_function}.
+Add \tcode{constexpr} in the interface of \tcode{copyable_function}, \tcode{move_only_function}, and \tcode{function_ref}.
+
+For \tcode{function_ref} that is only the call operator. Its constructors are already \tcode{constexpr}, except the one taking a pointer to function, which this paper does not change.
 
 \chapter{Wording}
 
 \begin{wording}
 
-\include{new-function}
+\input{wording/diff/wording}
 
 \end{wording}
 
