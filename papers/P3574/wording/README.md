@@ -79,6 +79,7 @@ The same wording marked against the working draft, with `\added` and
 ```sh
 make wording-diff                              # whole changed subclauses
 make wording-diff WORDING_DIFF_CONTEXT=items   # unchanged items elided as [...]
+make wording-diff WORDING_DIFF_CONTEXT=decls   # and unchanged descriptions
 ```
 
 The baseline is the working draft itself: specgen reads the three clauses from
@@ -88,7 +89,7 @@ the diff is exactly what P3574 changes.
 
 The old baseline, the branch `p3574-baseline` and the tag
 `p3574-baseline-draft`, was these headers with `constexpr` removed, kept so
-specgen could diff against a revision. Nothing reads it now, and it can be
+specgen could diff against a revision. Nothing reads it now, and both are
 deleted.
 
 The target always runs: the draft isn't a file make can date.
@@ -114,9 +115,3 @@ The target always runs: the draft isn't a file make can date.
   every item's declaration are authored, detached, at the end of
   `function_ref.hpp`, each with `\asdraft` taking the description. specgen
   still validates their spans and leakage.
-- specgen reports, as warnings, the draft macros it has no inline kind for
-  yet (`\ref`, `\cvqual`, `\exposconcept`, `\newline`, `\opt`) in
-  [func.wrap.ref], and writes them back as they were
-  ([specgen #307](https://github.com/steve-downey/specgen/issues/307)).
-  `wording.mk` lets exactly those through; anything else it reports fails the
-  run.

@@ -26,7 +26,7 @@ SPECGEN_GCC_TOOLCHAIN ?= $(patsubst %/bin/,%,$(dir $(realpath $(shell command -v
 # one is warned about and not refused: rebasing the paper onto a newer draft is
 # a deliberate act, and the diff then shows what moved.
 WORDING_DRAFT_SOURCE ?= ../draft/source
-WORDING_DRAFT_COMMIT := 2594eff0
+WORDING_DRAFT_COMMIT := 3e3793aa
 
 # Whether the draft is there to read, and a warning when it is not the revision
 # the wording is written against.
@@ -75,15 +75,6 @@ endif
 # --validate prints notes as well as warnings and errors. The notes are
 # informational (helpers that are \omit'ted and named by no wording), so the
 # run fails on any warning or error, and passes notes through.
-#
-# One class of warning is let through: the draft importer keeps a macro it has
-# no IR kind for as raw LaTeX and says so, and the latex backend writes it back
-# as it was, so the wording is still the draft's. In [func.wrap.ref] those are
-# \ref, \cvqual, \exposconcept, \newline, and \opt, each named below; any other
-# macro, and anything else the importer reports, still fails the run. Drop the
-# filter when the importer reads them (specgen #307).
-WORDING_ACCEPTED_IMPORT_WARNINGS := ^specgen: warning: func\.wrap\.ref[a-z.]*: (\\(ref|cvqual|exposconcept) has no IR kind|a macro in \\tcode is kept as raw LaTeX: \\(cvqual|newline|opt))
-
 define specgen_wording
 mkdir -p $(dir $(WORDING_FINDINGS)); \
 $(SPECGEN) generate $(WORDING_HEADERS) \
@@ -97,7 +88,7 @@ $(SPECGEN) generate $(WORDING_HEADERS) \
     > /dev/null 2> $(WORDING_FINDINGS); \
 status=$$?; \
 cat $(WORDING_FINDINGS) >&2; \
-if [ $$status -ne 0 ] || grep -v -E '$(WORDING_ACCEPTED_IMPORT_WARNINGS)' $(WORDING_FINDINGS) | grep -q -E ': (warning|error):'; then \
+if [ $$status -ne 0 ] || grep -q -E ': (warning|error):' $(WORDING_FINDINGS); then \
     echo "error: specgen reported findings; fix the header markup" >&2; \
     exit 1; \
 fi
@@ -171,7 +162,9 @@ wording-check: ## Check the checked-in wording matches what the headers generate
 # what P3574 changes and nothing else.
 #
 # WORDING_DIFF_CONTEXT is specgen's --diff-context: changed (whole changed
-# subclauses), items (unchanged runs of items elided as [...]), or all.
+# subclauses), items (unchanged runs of items elided as [...]), decls (an
+# unchanged description inside a changed item elided too, which leaves little
+# but the declarations that gain constexpr), or all.
 #
 # The draft is not a file make can date, so the target always runs.
 

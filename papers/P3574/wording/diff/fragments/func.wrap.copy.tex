@@ -55,7 +55,7 @@ namespace std {
 
   private:
     template<class VT>
-      static constexpr bool @\exposidnc{is-callable-from}@ = @\seebelow@;       // \expos
+      static constexpr bool @\exposid{is-callable-from}@ = @\seebelow@;       // \expos
   };
 }
 \end{codeblock}
@@ -203,7 +203,7 @@ Let \tcode{VT} be \tcode{decay_t<T>}.
 
 \pnum
 \ensures
-\tcode{*this} has a target object of type \tcode{VT} direct-non-list-initialized with \tcode{std::forward<Args>(args)...}.
+\tcode{*this} has a target object of type \tcode{VT} direct-non-list-initialized with \tcode{std::forward<Args>\brk{}(args)...}.
 
 \pnum
 \throws
@@ -240,7 +240,7 @@ Let \tcode{VT} be \tcode{decay_t<T>}.
 
 \pnum
 \ensures
-\tcode{*this} has a target object of type \tcode{VT} direct-non-list-initialized with \tcode{ilist, std::forward<Args>(args)...}.
+\tcode{*this} has a target object of type \tcode{VT} direct-non-list-initialized with \tcode{ilist, std::for\-ward<Args>(args)...}.
 
 \pnum
 \throws
