@@ -31,7 +31,8 @@ SPECGEN_GCC_TOOLCHAIN ?= $(patsubst %/bin/,%,$(dir $(realpath $(shell command -v
 # one is warned about and not refused: rebasing the paper onto a newer draft is
 # a deliberate act, and the diff then shows what moved.
 WORDING_DRAFT_SOURCE ?= ../draft/source
-WORDING_DRAFT_COMMIT := 3e3793aa
+# 45b03900 is N5054, the last published working draft.
+WORDING_DRAFT_COMMIT := 45b03900
 
 # Whether the draft is there to read, and a warning when it is not the revision
 # the wording is written against.
