@@ -8,12 +8,15 @@ header comments are the source of truth. `preamble.tex` is the comment block at
 the top of `wording.tex`, and is written by hand.
 
 ```sh
-make wording        # regenerate, if a header changed
-make wording-check  # regenerate into .build/ and compare with what's checked in
+make wording              # regenerate, if a header changed
+make wording-check        # regenerate into .build/ and compare with what's checked in
+make wording-diff         # regenerate diff/, the wording marked against the draft
+make wording-draft-patch  # regenerate draft.patch, the change as an edit of the draft's source
 ```
 
-`make wording` needs `specgen` on `PATH` (or `make SPECGEN=/path/to/specgen
-wording`), a checkout of [the C++ working draft](https://github.com/cplusplus/draft)
+`make wording` needs specgen, which `uv run` installs from the `wording`
+dependency group in `pyproject.toml` at the pinned version (0.47.0; override
+with `make SPECGEN=specgen wording` for whatever is on `PATH`), a checkout of [the C++ working draft](https://github.com/cplusplus/draft)
 (below), and GNU Make 4.3 or newer: one specgen run writes all three
 fragments, which the makefile states as a grouped target (`&:`). Without
 specgen, or without the draft, the checked-in wording is used as it is, with a
@@ -44,8 +47,11 @@ The rules are in `papers/P3574/wording.mk`, which the repository-root
 which lists every header each parse touched, `detail/` headers included, so
 editing a docblock regenerates the wording and editing nothing regenerates
 nothing. A run that reports a warning or an error fails, and leaves the
-checked-in fragments as they were. Notes, such as an `\omit`ted helper named
-by no wording, are printed and allowed.
+checked-in fragments as they were. specgen's `--warnings-as-errors` fails on
+a validation or docblock warning but not on one from reading the draft
+([specgen #372](https://github.com/steve-downey/specgen/issues/372)), so the
+makefile also fails the run on any warning printed to standard error. Notes,
+such as an `\omit`ted helper named by no wording, are printed and allowed.
 
 specgen's embedded Clang parses the headers against GCC 16's libstdc++, because
 `function_ref` needs `std::constant_wrapper`. The makefile finds the
@@ -97,6 +103,23 @@ deleted.
 
 The target always runs: the draft isn't a file make can date.
 
+## `draft.patch`
+
+The same change as an edit of the draft's own LaTeX source, for a pull request
+to [cplusplus/draft](https://github.com/cplusplus/draft). specgen's
+`--apply-to-draft` changes only the tokens the paper changes, so the draft's
+line breaks, index entries and comments stay as they are. For P3574 that is 66
+single-line edits to `source/utilities.tex`, each adding `constexpr`. In a
+checkout of the draft at `WORDING_DRAFT_COMMIT`:
+
+```sh
+git apply /path/to/papers/P3574/wording/draft.patch
+```
+
+A change specgen cannot place in the draft's source yet fails the run
+([specgen #346](https://github.com/steve-downey/specgen/issues/346)). P3574
+needs none of those.
+
 ## How the headers carry the wording
 
 - Each owning wrapper is one partial specialization standing for all twelve,
@@ -105,7 +128,7 @@ The target always runs: the draft isn't a file make can date.
   because `operator()` is declared by `detail::call_base`, not by the class, so
   there is no declaration of it for specgen to patch the draft's synopsis from.
   specgen compares the authored synopsis with the class's own declarations under
-  `--validate` and notes the one declaration the class does not make.
+  `--validate`, and pairs the `operator()` line with its detached item.
 - The general subclauses, the class descriptions, and every member's
   description are `//! \asdraft`, and take the draft's text. `operator()` is
   declared by `detail::call_base`, so its item is a detached
