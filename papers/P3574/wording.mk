@@ -77,14 +77,19 @@ endif
 # name: the one specgen derives is the document's top clause's own stable
 # name, which would collide with that clause's fragment.
 #
-# generate reports docblock findings on standard error and still exits 0, and
 # --validate prints notes as well as warnings and errors. The notes are
 # informational (helpers that are \omit'ted and named by no wording), so the
 # run fails on any warning or error, and passes notes through.
+#
+# --warnings-as-errors fails the run on a validation or docblock warning, but
+# not on one from reading the draft: the importer's (a construct kept as raw
+# LaTeX) and \asdraft's resolution are printed and the run still exits 0
+# (specgen #372). So standard error is checked as well, and a warning from
+# anywhere fails.
 define specgen_wording
 mkdir -p $(dir $(WORDING_FINDINGS)); \
 $(SPECGEN) generate $(WORDING_HEADERS) \
-    --backend latex --validate \
+    --backend latex --validate --warnings-as-errors \
     --split $(1) \
     --root func.wrap.move.root \
     --root func.wrap.copy.root \
@@ -192,3 +197,42 @@ wording-diff: ## Regenerate papers/P3574/wording/diff/, the wording marked again
 	done
 	@$(call assemble_wording,$(WORDING_DIFF_DIR),$(WORDING_DIR)/diff-preamble.tex)
 	@echo "Wrote $(WORDING_DIFF_DIR)/wording.tex"
+
+# ---- The wording as an edit of the draft's own source ----------------------
+#
+# The paper's change made in the draft's LaTeX itself, as a patch that `git
+# apply` takes in a checkout of cplusplus/draft: specgen's --apply-to-draft
+# rewrites only the tokens the paper changes, so the draft's line breaks, index
+# entries and comments are left as they are. This is what a pull request to the
+# draft would contain. A change specgen cannot place in the draft's source yet
+# (specgen #346) fails the run.
+#
+# Like the wording diff, it reads the draft, so the target always runs.
+
+WORDING_DRAFT_PATCH := $(WORDING_DIR)/draft.patch
+WORDING_DRAFT_STAGE := $(BUILD_DIR)/wording-draft-stage
+
+.PHONY: wording-draft-patch
+wording-draft-patch: ## Regenerate papers/P3574/wording/draft.patch, the change as a patch to the draft's source
+	@$(wording_draft_present) || { echo "error: the draft's source is not at $(WORDING_DRAFT_SOURCE); set WORDING_DRAFT_SOURCE" >&2; exit 1; }
+	@$(wording_draft_revision_check)
+	@rm -rf $(WORDING_DRAFT_STAGE)
+	@mkdir -p $(WORDING_DRAFT_STAGE) $(dir $(WORDING_FINDINGS))
+	@$(SPECGEN) generate $(WORDING_HEADERS) \
+	    --apply-to-draft $(WORDING_DRAFT_SOURCE) -o $(WORDING_DRAFT_STAGE) \
+	    --no-compile-commands -- $(SPECGEN_CLANG_ARGS) \
+	    2> $(WORDING_FINDINGS); \
+	status=$$?; \
+	cat $(WORDING_FINDINGS) >&2; \
+	if [ $$status -ne 0 ] || grep -q -E ': (warning|error):' $(WORDING_FINDINGS); then \
+	    echo "error: specgen could not apply the wording to the draft's source" >&2; \
+	    exit 1; \
+	fi
+	@: > $(WORDING_DRAFT_PATCH).tmp
+	@for file in $$(cd $(WORDING_DRAFT_STAGE) && ls); do \
+	    diff -u --label a/source/$$file --label b/source/$$file \
+	        $(WORDING_DRAFT_SOURCE)/$$file $(WORDING_DRAFT_STAGE)/$$file >> $(WORDING_DRAFT_PATCH).tmp; \
+	    [ $$? -le 1 ] || exit 1; \
+	done
+	@mv $(WORDING_DRAFT_PATCH).tmp $(WORDING_DRAFT_PATCH)
+	@echo "Wrote $(WORDING_DRAFT_PATCH)"
