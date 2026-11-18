@@ -74,7 +74,10 @@ The same subclauses, one file per `\rSec3`, named for its stable name, for
 
 The same wording marked against the working draft, with `\added` and
 `\removed`, as the paper presents it: `diff/wording.tex` (after
-`diff-preamble.tex`) and `diff/fragments/`. Regenerate it with
+`diff-preamble.tex`) and `diff/fragments/`. The paper's Wording chapter is
+`\input{wording/diff/wording}` in `constexpr-function-wording.tex`, so
+regenerating the diff and rebuilding the paper is all it takes to change what
+the paper proposes. Regenerate it with
 
 ```sh
 make wording-diff                              # whole changed subclauses
