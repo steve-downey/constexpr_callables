@@ -3,6 +3,11 @@ constexpr-function-wording.pdf :\
     ./abstract.bst\
     ./mybiblio.bib\
     ./wg21.bib\
+    /home/sdowney/.local/share/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf\
+    /home/sdowney/.local/share/fonts/Source_Sans_3/static/SourceSans3-BoldItalic.ttf\
+    /home/sdowney/.local/share/fonts/Source_Serif_4/SourceSerif4-Italic-VariableFont_opsz,wght.ttf\
+    /home/sdowney/.local/share/fonts/Source_Serif_4/SourceSerif4-VariableFont_opsz,wght.ttf\
+    /home/sdowney/.local/share/fonts/Source_Serif_4/static/SourceSerif4-Bold.ttf\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono9-regular.luc\
@@ -11,19 +16,19 @@ constexpr-function-wording.pdf :\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman8-regular.luc\
     /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc\
-    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-Bold.otf\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-BoldIt.otf\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Bold.otf\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Regular.otf\
-    /usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-RegularIt.otf\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-bolditalic.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-italic.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-regular.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-bold.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-bolditalic.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-italic-variablefont-opsz-wght.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-variablefont-opsz-wght.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourcesans3bolditalicttf-1.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourcesans3boldttf-1.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4boldttf-1.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4italicvariablefontopszwghtttf-1.luc\
+    /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4variablefontopszwghtttf-1.luc\
     /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm\
     /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm\
     /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm\
@@ -266,6 +271,16 @@ constexpr-function-wording.pdf :\
 
 ./wg21.bib :
 
+/home/sdowney/.local/share/fonts/Source_Sans_3/static/SourceSans3-Bold.ttf :
+
+/home/sdowney/.local/share/fonts/Source_Sans_3/static/SourceSans3-BoldItalic.ttf :
+
+/home/sdowney/.local/share/fonts/Source_Serif_4/SourceSerif4-Italic-VariableFont_opsz,wght.ttf :
+
+/home/sdowney/.local/share/fonts/Source_Serif_4/SourceSerif4-VariableFont_opsz,wght.ttf :
+
+/home/sdowney/.local/share/fonts/Source_Serif_4/static/SourceSerif4-Bold.ttf :
+
 /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-italic.luc :
 
 /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmmono10-regular.luc :
@@ -282,31 +297,31 @@ constexpr-function-wording.pdf :\
 
 /home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/lmroman9-regular.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-bold.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-boldit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-bolditalic.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-italic.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesanspro-regularit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourcesans3-regular.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-bold.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-bold.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-boldit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-bolditalic.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regular.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-italic-variablefont-opsz-wght.luc :
 
-/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserifpro-regularit.luc :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/otl/sourceserif4-variablefont-opsz-wght.luc :
 
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-Bold.otf :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourcesans3bolditalicttf-1.luc :
 
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourcesanspro/SourceSansPro-BoldIt.otf :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourcesans3boldttf-1.luc :
 
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Bold.otf :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4boldttf-1.luc :
 
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-Regular.otf :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4italicvariablefontopszwghtttf-1.luc :
 
-/usr/share/texlive/texmf-dist/fonts/opentype/adobe/sourceserifpro/SourceSerifPro-RegularIt.otf :
+/home/sdowney/.texlive2025/texmf-var/luatex-cache/generic/fonts/streams/sourceserif4variablefontopszwghtttf-1.luc :
 
 /usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm :
 
