@@ -12,7 +12,12 @@
 # wording.tex from them in the draft's order, after the hand-written
 # preamble.tex. GNU Make 4.3 or newer, for the grouped target.
 
-SPECGEN ?= specgen
+# specgen, from the `wording` dependency group in pyproject.toml: `uv run`
+# installs that group into the project's venv on first use, at the pinned
+# version. To try another specgen -- a newer release, or a development build --
+# override it, e.g. SPECGEN=specgen for whatever is on PATH, or
+# SPECGEN='uv run --with beman-specgen==X.Y.Z specgen'.
+SPECGEN ?= $(UV) run --group wording specgen
 
 # The C++ standard library specgen's embedded Clang parses against. function_ref
 # needs std::constant_wrapper, so default to the GCC 16 installation that
@@ -26,7 +31,8 @@ SPECGEN_GCC_TOOLCHAIN ?= $(patsubst %/bin/,%,$(dir $(realpath $(shell command -v
 # one is warned about and not refused: rebasing the paper onto a newer draft is
 # a deliberate act, and the diff then shows what moved.
 WORDING_DRAFT_SOURCE ?= ../draft/source
-WORDING_DRAFT_COMMIT := 3e3793aa
+# 45b03900 is N5054, the last published working draft.
+WORDING_DRAFT_COMMIT := 45b03900
 
 # Whether the draft is there to read, and a warning when it is not the revision
 # the wording is written against.
@@ -109,9 +115,10 @@ endef
 
 # A grouped target: one invocation writes all of these, and make must not run
 # it once per fragment. Without specgen the checked-in fragments are used as
-# they are, with a warning, so the paper still builds.
+# they are, with a warning, so the paper still builds. Whether specgen is there
+# is asked by running it, since $(SPECGEN) is a command line and not a name.
 $(WORDING_FRAGMENTS) &: $(WORDING_HEADERS) papers/P3574/wording.mk
-	@if command -v $(SPECGEN) > /dev/null 2>&1 && $(wording_draft_present); then \
+	@if $(SPECGEN) --version > /dev/null 2>&1 && $(wording_draft_present); then \
 	    $(wording_draft_revision_check); \
 	    rm -rf $(WORDING_STAGE) && \
 	    mkdir -p papers/.deps $(WORDING_STAGE) $(WORDING_DIR)/fragments && \
