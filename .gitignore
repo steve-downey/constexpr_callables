@@ -33,3 +33,8 @@
 
 # specgen dependency files from make wording
 /papers/.deps/
+
+# A paper's latexmk dependency files, which name this machine's paths, and a
+# local pyenv pin; the paper Makefile chooses its own Python.
+/papers/*/.deps/
+/papers/*/.python-version
