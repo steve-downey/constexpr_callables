@@ -70,6 +70,8 @@ Add \tcode{constexpr} in the interface of \tcode{copyable_function}, \tcode{move
 
 For \tcode{function_ref} that is only the call operator. Its constructors are already \tcode{constexpr}, except the one taking a pointer to function, which this paper does not change.
 
+A pointer to function can be stored in a \tcode{function_ref} only through \tcode{reinterpret_cast}, which is not permitted in a constant expression. A function can still be bound in a constant expression through \tcode{constant_wrapper}, as \tcode{function_ref(std::cw<f>)}.
+
 \chapter{Wording}
 
 \begin{wording}
