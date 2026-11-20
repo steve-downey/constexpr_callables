@@ -17,7 +17,7 @@
 
 \begin{flushright}
   \begin{tabular}{ll}
-    Document \#: & P3574R0 \\
+    Document \#: & P3574R1 \\
     Date: & \today \\
     Project: & Programming Language C++ \\
     Audience: & LEWG
@@ -31,6 +31,17 @@ Add \tcode{constexpr} in the interface of \tcode{copyable_function}, \tcode{move
 \tableofcontents*
 
 \chapter*{Changes Since Last Version}
+
+\section*{Changes since R0}
+
+\begin{itemize}
+\item \tcode{function_ref}'s call operator is now \tcode{constexpr}. R0 proposed \tcode{constexpr} only for \tcode{move_only_function} and \tcode{copyable_function}. A note in the Proposal explains that the call operator is the only change \tcode{function_ref} needs: its constructors are already \tcode{constexpr}, except the one taking a pointer to function, which stays as it is.
+\item The wording is now relative to \cite{N5054} rather than \cite{N4910}. The \tcode{function_ref} constructors that took \tcode{nontype_t} now take \tcode{constant_wrapper}, as in the working draft; they were already \tcode{constexpr} and are not changed by this paper.
+\item In R0's wording for \tcode{copyable_function}'s constructor from \tcode{F\&\&}, \tcode{constexpr} was placed before \tcode{template<class F>}. It now follows it, as in the class synopsis.
+\item The Wording chapter shows only the three changed subclauses, [func.wrap.move], [func.wrap.copy], and [func.wrap.ref], instead of all of [function.objects].
+\end{itemize}
+
+\section*{R0}
 
 \begin{itemize}
 \item \textbf{Initial Version}
