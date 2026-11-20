@@ -13,3 +13,9 @@ dev = [
     "gcovr>=8.6",
     "pre-commit>=4.5.1",
 ]
+# specgen, which generates papers/P3574/wording/ from the annotated headers
+# (make wording). Its own group, since it is published only for Linux x86_64
+# and is not needed to build or test the library.
+wording = [
+    "beman-specgen==0.47.0; sys_platform == 'linux' and platform_machine == 'x86_64'",
+]

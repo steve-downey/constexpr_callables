@@ -1,11 +1,11 @@
-PYEXECPATH ?= $(shell which python3.12 || which python3.11 || which python3.10)
-PYTHON ?= $(shell basename $(PYEXECPATH))
+# The venv the paper builds in. minted runs TeX Live's latexminted under the
+# venv's python3, and the latexminted that goes with TeX Live's minted.sty 3.7
+# fails on Python 3.14's argparse, so the venv is pinned to 3.13; uv fetches
+# it if this machine has no 3.13. Override with PAPER_PYTHON=<version>.
+UV ?= uv
+PAPER_PYTHON ?= 3.13
 VENV := .venv/
 SOURCE_VENV := . $(VENV)/bin/activate;
-PYEXEC := $(SOURCE_VENV) $(PYTHON)
-PIP_SYNC := $(PYEXEC) -m piptools sync
-REQS_MARKER := $(VENV)/bin/.pip-sync
-PIP := $(PYEXEC) -m pip
 DEPS_DIR := .deps
 
 override DEPS := $(VENV) wg21.bib
@@ -13,9 +13,8 @@ override DEPS := $(VENV) wg21.bib
 default: papers
 
 $(VENV):
-	$(PYTHON) -m venv --system-site-packages $(VENV)
-	$(PIP) install setuptools pip pip-tools wheel
-	$(PIP_SYNC) requirements.txt
+	$(UV) venv --python $(PAPER_PYTHON) --system-site-packages $(VENV)
+	$(UV) pip sync --python $(VENV)/bin/python requirements.txt
 
 .PHONY: create-venv
 create-venv:
